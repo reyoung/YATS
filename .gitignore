@@ -8,13 +8,5 @@ Debug*
 *.user
 *.opensdf
 dist
-/selftest/reyoung/PcapConsole/build
-/selftest/reyoung/PcapConsole/nbproject/private
-/JFlowMonitor/build
-/JFlowMonitor/nbproject/private
-/selftest/lordvv/Helloworld/build
-/selftest/lordvv/Helloworld/nbproject/private
-
-/selftest/reyoung/SmallPanelTest/nbproject/private
-/selftest/reyoung/SmallPanelTest/build
-/bin/flow.sqlite
+tmp
+nbproject
