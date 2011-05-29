@@ -15,5 +15,12 @@ public class BasicTest extends UnitTest {
         User reyoung = User.find("byName", "reyoung").first();
         assertNotNull(reyoung);
     }
-    
+    @Test
+    public void PaperModelTest()
+    {
+        User reyoung = User.find("byName", "reyoung").first();
+        reyoung.addPaper("maogai");
+        Paper mao = Paper.find("byName", "maogai").first();
+        assertNotNull(mao);
+    }
 }

@@ -3,8 +3,12 @@
  */
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -24,12 +28,24 @@ public class User extends Model {
     @Required
     @Column(name = "type", nullable = false)
     public int type;
+    
+    @OneToMany(mappedBy="author", cascade=CascadeType.ALL)
+    public List<Paper> papers;
 
-    public User(String name, String passwd) {
+    public User(String name, String passwd,int type) {
         this.name = name;
         this.passwd = passwd;
+        this.type = type;
+        this.papers = new ArrayList<Paper>();
     }
 
+    public User addPaper(String name)
+    {
+        Paper papers = new Paper(name,false,this);
+        this.papers.add(papers);
+        this.save();
+        return this;
+    }
     public static User connect(String name,String passwd){
         return User.find("byNameAndPasswd", name,passwd).first();
     }
