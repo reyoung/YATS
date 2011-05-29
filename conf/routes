@@ -10,13 +10,16 @@ GET     /                                       Application.index
 
 
 #Admin Pages
-*       /admin/                                 Admin.index
+*       /admin/?                                Admin.index
 
 #Student Pages
 *       /student/                               Student.index
 
 #Teacher Pages
 *       /teacher/                               Teacher.index
+
+#Add Curd Module to /admin
+*       /admin/crud/                            module:crud
 
 
 # Ignore favicon requests

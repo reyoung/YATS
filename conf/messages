@@ -4,3 +4,9 @@
 secure.username=Your name:
 secure.password=Your password:
 secure.signin=Log in now
+
+
+name=User Name
+passwd=Password
+type=User Type (0=Student<br>1=Teacher 2=Admin)
+UserCRUD=User CRUD Operations

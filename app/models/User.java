@@ -33,4 +33,25 @@ public class User extends Model {
     public static User connect(String name,String passwd){
         return User.find("byNameAndPasswd", name,passwd).first();
     }
+    /**
+     * For CRUD
+     * @return
+     */
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        switch(this.type){
+            case UserType.ADMINISTRATOR:
+                sb.append("Administrator ");
+                break;
+            case UserType.STUDENT:
+                sb.append("Student ");
+                break;
+            case UserType.TEACHER:
+                sb.append("Teacher ");
+                break;
+        }
+        sb.append(name);
+        return sb.toString();
+    }
 }

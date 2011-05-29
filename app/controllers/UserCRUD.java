@@ -3,21 +3,21 @@
  */
 
 package controllers;
-
 import controllers.Check;
 import controllers.Secure;
-import play.mvc.Controller;
+import models.User;
 import play.mvc.With;
 
 /**
  *
  * @author Reyoung
  */
+@CRUD.For(User.class)
 @Check("admin")
 @With(Secure.class)
-public class Admin extends Controller{
-    public static void index(){
-        String name = Security.connected();
-        render(name);
+public class UserCRUD extends CRUD{
+    @Override
+    public String toString(){
+        return "User CRUD Operations";
     }
 }

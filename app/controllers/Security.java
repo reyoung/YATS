@@ -28,6 +28,9 @@ public class Security extends Secure.Security   {
         }
         return false;
     }
+    static String connectedUser(){
+        return Security.connected();
+    }
     static void onDisconnected() {
         Application.index();
     }
