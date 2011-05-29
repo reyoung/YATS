@@ -1,0 +1,36 @@
+#header {
+	padding: 10px 60px;
+	background: #111;
+	margin-bottom: 10px;
+	color: #99CC66;
+	position: relative;
+}
+#header p {
+	margin: 5px 0;
+}
+
+#header a {
+	color: gold;
+}
+
+#header #menu {
+	position: absolute;
+	bottom: 0;
+	right: 60px;
+	list-style: none;
+}
+
+#header #menu li {
+	float: left;
+}
+
+#header #menu li a {
+	display: block;
+	background: #222;
+	padding: 10px 20px;
+	margin-left: 3px;
+}
+
+#header #menu li a.selected {
+	background: #444;
+}
