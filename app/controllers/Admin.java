@@ -6,6 +6,8 @@ package controllers;
 
 import controllers.Check;
 import controllers.Secure;
+import java.util.ArrayList;
+import java.util.List;
 import models.User;
 import models.UserType;
 import play.mvc.Before;
@@ -25,6 +27,11 @@ public class Admin extends Controller{
             User user = User.find("byName", Security.connected()).first();
             renderArgs.put("user", user);
         }
+        List<HeaderItem> headeritem = new ArrayList<HeaderItem>();
+        headeritem.add(new HeaderItem("/logout", "logout"));
+        headeritem.add(new HeaderItem("/about", "about"));
+        renderArgs.put("headeritem", headeritem);
+        renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
     public static void index(){
         render();
