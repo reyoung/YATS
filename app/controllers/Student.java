@@ -4,6 +4,8 @@
 
 package controllers;
 
+import models.User;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -14,8 +16,14 @@ import play.mvc.With;
 @Check("student")
 @With(Secure.class)
 public class Student extends Controller{
+    @Before
+    static void setConnectedUser() {
+        if(Security.isConnected()) {
+            User user = User.find("byName", Security.connected()).first();
+            renderArgs.put("user", user);
+        }
+    }
     public static void index(){
-        String name = Security.connected();
-        render(name);
+        render();
     }
 }

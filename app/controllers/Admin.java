@@ -6,6 +6,9 @@ package controllers;
 
 import controllers.Check;
 import controllers.Secure;
+import models.User;
+import models.UserType;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -16,8 +19,14 @@ import play.mvc.With;
 @Check("admin")
 @With(Secure.class)
 public class Admin extends Controller{
+    @Before
+    static void setConnectedUser() {
+        if(Security.isConnected()) {
+            User user = User.find("byName", Security.connected()).first();
+            renderArgs.put("user", user);
+        }
+    }
     public static void index(){
-        String name = Security.connected();
-        render(name);
+        render();
     }
 }
