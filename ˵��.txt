@@ -1,0 +1,16 @@
+使用 play run YATS 启动项目，默认端口9000，默认数据库mem
+
+默认用户，reyoung	学生
+		  kuziki	教师
+		  lordvv	管理员
+		密码均为123321
+
+www目录如下：
+/			根目录
+/student/	学生的根目录
+/teacher/	教师的目录
+/admin/		管理员目录
+/login		登录
+/logout		登出
+
+已经做了相应的权限设置，即student只能访问student目录，而不能访问其他目录的东西，如果访问错误，会报403错误，导向至403错误页。	
