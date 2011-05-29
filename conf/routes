@@ -2,14 +2,30 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Import Secure Routes
+*       /                                       module:secure
+
 # Home page
 GET     /                                       Application.index
+
+
+#Admin Pages
+*       /admin/                                 Admin.index
+
+#Student Pages
+*       /student/                               Student.index
+
+#Teacher Pages
+*       /teacher/                               Teacher.index
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+
+
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
