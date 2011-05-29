@@ -1,0 +1,28 @@
+%{if(_arg!=null){ }%
+<table style="text-align: left; width: 130px; height: 98px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td>User: ${_arg.name}<br>
+          Type: %{
+            if(_arg.type==0){
+          }%
+           Student
+          %{}
+            else if(_arg.type==1){
+          }%
+            Teacher
+          %{}
+            else{
+          %}
+            Admin
+          %{}
+          }%<br>
+      <div style="text-align: center;"><a href="/logout">Logout</a></div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+%{}else{}%
+<h2><a href="/login">You Need Log in!</a></h2>
+%{}}%

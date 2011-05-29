@@ -1,0 +1,14 @@
+<div id="header">
+<div id="img">
+<img style="width: 668px; height: 61px;" alt="" src="${_img}">
+</div>
+<div id="menu">
+%{
+    for(item in _items){
+%}
+<li><a href="${item.url}">${item.name}</a></li>
+%{
+    }
+}%
+</div>
+</div>
