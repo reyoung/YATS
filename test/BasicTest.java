@@ -7,8 +7,8 @@ import models.*;
 public class BasicTest extends UnitTest {
     @Before
     public void setup(){
-        Fixtures.deleteAll();
-        Fixtures.loadModels("data.yml");
+//        Fixtures.deleteAll();
+//        Fixtures.loadModels("data.yml");
     }
 
     @Test
@@ -20,7 +20,7 @@ public class BasicTest extends UnitTest {
     public void PaperModelTest()
     {
         User reyoung = User.find("byName", "reyoung").first();
-        Paper mao = new Paper("cmmi",false,reyoung);
+        Paper mao = new Paper("cmmi",false,7200,reyoung);
         mao.save();
         assertNotNull(mao);
     }
@@ -48,5 +48,24 @@ public class BasicTest extends UnitTest {
         mao.addQuestion("q1", 2, "1", "2", "3");
         Question qs = Question.find("byTitle", "q1").first();
         assertNotNull(qs);
+    }
+    @Test
+    public void UsrDoQuesModelTest()
+    {
+        User reyoung = User.find("byName", "reyoung").first();
+        Question qs = Question.find("byTitle", "q1").first();
+        UsrDoQues udq = new UsrDoQues(reyoung, qs, 3);
+        udq.save();
+        assertNotSame(0, UsrDoQues.count());
+    }
+    @Test
+    public void ResultInfoModelTest()
+    {
+        User reyoung = User.find("byName", "reyoung").first();
+        Paper mao = Paper.find("byName", "cmmi").first();
+        Date start = new Date(111,4,30);
+        ResultInfo ri = new ResultInfo(reyoung, mao, start);
+        ri.save();
+        assertNotSame(0, ResultInfo.count());
     }
 }
