@@ -27,15 +27,19 @@ public class Paper extends Model{
     @Column(name = "isPublished", nullable = false)
     public boolean isPublished;
     @Required
+    @Column(name = "time", nullable = false)
+    public int time; //以秒计时的总考试时间
+    @Required
     @ManyToOne
     public User author;
 
     @OneToMany(mappedBy="paper", cascade=CascadeType.ALL)
     public List<Question> questions;
 
-    public Paper(String name, boolean isPublished, User author) {
+    public Paper(String name, boolean isPublished,int time ,User author) {
         this.name = name;
         this.isPublished = isPublished;
+        this.time = time;
         this.author = author;
         this.questions = new ArrayList<Question>();
     }
