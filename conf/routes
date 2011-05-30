@@ -16,8 +16,8 @@ GET     /                                       Application.index
 *       /student/                               Student.index
 
 #Teacher Pages
-*       /teacher/                               Teacher.index
-
+*       /teacher/?                              Teacher.index
+*       /teacher/draft                          Teacher.draft
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 
