@@ -4,8 +4,11 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import models.User;
+import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -49,9 +52,13 @@ public class Teacher extends Controller {
         addAction_draft_0();
         render();
     }
-    public static void draft_new_addPaper(String PaperName){
+    public static void draft_new_addPaper(@Required String PaperName,@Required double TestTime){
+        if(Validation.hasErrors()){
+            flash.error("All Field is Required or Input Format Not Correctly");
+            draft_new();
+        }
         addAction_draft_0();
-        render(PaperName);
+        render(PaperName,TestTime);
     }
 
 
