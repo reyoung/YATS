@@ -1,0 +1,6 @@
+#{extends 'teacher/draft.html' /}
+#{set title:'Teacher Home>>Draft>>New' /}
+<form action="@{Teacher.draft_new_addPaper()}" method="POST">
+    Paper Name:<input type="text" name="PaperName" />
+    <input type="submit" value="new" />
+</form>

@@ -24,10 +24,10 @@ public class Teacher extends Controller {
             User user = User.find("byName", Security.connected()).first();
             renderArgs.put("user", user);
         }
-        List<HeaderItem> headeritem = new ArrayList<HeaderItem>();
-        headeritem.add(new HeaderItem("/teacher/draft", "Draft"));
-        headeritem.add(new HeaderItem("/teacher/published","Published"));
-        headeritem.add(new HeaderItem("/about", "About"));
+        List<MenuItem> headeritem = new ArrayList<MenuItem>();
+        headeritem.add(new MenuItem("/teacher/draft", "Draft"));
+        headeritem.add(new MenuItem("/teacher/published","Published"));
+        headeritem.add(new MenuItem("/about", "About"));
         renderArgs.put("headeritem", headeritem);
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
@@ -35,9 +35,34 @@ public class Teacher extends Controller {
      * 草稿页面
      */
     public static void draft(){
-        render();
+        draft_list();           //! 草稿页面，默认跳转到List页面
     }
     public static void index() {
         draft();                //! 默认跳转到草稿页面
+    }
+
+    public static void draft_list(){
+        addAction_draft_0();
+        render();
+    }
+    public static void draft_new(){
+        addAction_draft_0();
+        render();
+    }
+    public static void draft_new_addPaper(String PaperName){
+        addAction_draft_0();
+        render(PaperName);
+    }
+
+
+
+    /**
+     * 添加草稿0层的action
+     */
+    private static void addAction_draft_0(){
+        List<MenuItem> actions = new ArrayList<MenuItem>();
+        actions.add(new MenuItem("/teacher/draft/list","List"));
+        actions.add(new MenuItem("/teacher/draft/new","New"));
+        renderArgs.put("actioncontext", actions);
     }
 }
