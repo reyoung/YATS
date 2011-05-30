@@ -21,6 +21,7 @@ GET     /                                       Application.index
 *       /teacher/draft/list                     Teacher.draft_list
 *       /teacher/draft/new                      Teacher.draft_new
 *       /teacher/draft/new/add_paper_complete   Teacher.draft_new_addpaper
+*       /teacher/draft/edit                     Teacher.draft_edit
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 

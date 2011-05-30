@@ -54,14 +54,22 @@ public class Teacher extends Controller {
         addAction_draft_0();
         render();
     }
+    public static void draft_edit(@Required long paper_id){
+        if(Validation.hasErrors()){
+            Application.index();
+        }
+        addAction_draft_1(paper_id);
+        render();
+    }
+
+
     public static void draft_new_addPaper(@Required String PaperName,@Required double TestTime){
         if(Validation.hasErrors()){
             flash.error("All Field is Required or Input Format Not Correctly");
             draft_new();
         }
-        ModelProxy.AddNewPaper(Security.connected(), PaperName, TestTime);
-        addAction_draft_0();
-        render(PaperName,TestTime);
+        long id = ModelProxy.AddNewPaper(Security.connected(), PaperName, TestTime);
+        draft_edit(id);
     }
 
     /**
@@ -71,6 +79,15 @@ public class Teacher extends Controller {
         List<MenuItem> actions = new ArrayList<MenuItem>();
         actions.add(new MenuItem("/teacher/draft/list","List"));
         actions.add(new MenuItem("/teacher/draft/new","New"));
+        renderArgs.put("actioncontext", actions);
+    }
+    /**
+     * 添加草稿1层的action
+     */
+    private static void addAction_draft_1(long paper_id){
+        List<MenuItem> actions = new ArrayList<MenuItem>();
+        actions.add(new MenuItem(String.format("/teacher/draft/publish?paper_id=%d", paper_id),"Publish"));
+        actions.add(new MenuItem(String.format("/teacher/draft/remove?paper_id=%d", paper_id),"Remove"));
         renderArgs.put("actioncontext", actions);
     }
 }

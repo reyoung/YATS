@@ -24,7 +24,11 @@ public class ModelProxy {
         System.out.printf("ModelProxy.AddNewPaper(%s,%s,%f) called", username,papername,hour);
         return -1;
     }
-
+    /**
+     * 返回一个Teacher的所有Paper ID 和名称
+     * @param username
+     * @return
+     */
     public static List<MenuItem>    GetPaperByTeacher(String username){
         List<MenuItem> retv = new ArrayList<MenuItem>();
         retv.add(new MenuItem(TeacherPaperId2URL(1), "Paper 1"));
@@ -32,7 +36,29 @@ public class ModelProxy {
         return retv;
     }
 
+    /**
+     * 删除一个Paper
+     * @param username  教师姓名
+     * @param id        试卷id
+     */
+    public void RemovePaperByID(String username,long id){
+        
+    }
+    /**
+     * 发布一个paper
+     * @param username  教师姓名
+     * @param id        试卷ID
+     */
+    public void PublishPaperByID(String username,long id){
+        
+    }
+
+    /**
+     * 由Paper_id转成URL
+     * @param id
+     * @return
+     */
     private static String TeacherPaperId2URL(long id){
-        return String.format("/teacher/edit?paper_id=%d", id);
+        return String.format("/teacher/draft/edit?paper_id=%d", id);
     }
 }
