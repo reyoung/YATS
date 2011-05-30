@@ -17,7 +17,7 @@ import play.db.jpa.Model;
  * @author Kuziki
  */
 @Entity
-public class UsrDoQues extends Model{
+public class UserDoneQuestion extends Model{
     @ManyToOne
     public User user;
     @ManyToOne
@@ -26,7 +26,7 @@ public class UsrDoQues extends Model{
     @Column(name = "answer", nullable = false)
     public int answer;
 
-    public UsrDoQues(User user, Question question, int answer) {
+    public UserDoneQuestion(User user, Question question, int answer) {
         this.user = user;
         this.question = question;
         this.answer = answer;

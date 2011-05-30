@@ -48,14 +48,14 @@ public class ResultInfo extends Model{
                 paper).fetch();
         int qnum = qs.size();
         double scorePerQus = 100.0 / qnum;
-        List<UsrDoQues> udq = UsrDoQues.find("byUser", this.user).fetch();
+        List<UserDoneQuestion> udq = UserDoneQuestion.find("byUser", this.user).fetch();
         if(udq == null || udq.size() == 0)
         {
             result = res;
             this.save();
             return result;
         }
-        for(UsrDoQues u : udq)
+        for(UserDoneQuestion u : udq)
         {
             if(u.answer == u.question.answer)res += scorePerQus;
         }

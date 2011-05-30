@@ -55,11 +55,11 @@ public class BasicTest extends UnitTest {
         User reyoung = User.find("byName", "reyoung").first();
         Question qs = Question.find("byTitle", "q1").first();
         Question qs2 = Question.find("byTitle", "first").first();
-        UsrDoQues udq = new UsrDoQues(reyoung, qs, 3);
-        UsrDoQues udq2 = new UsrDoQues(reyoung, qs2, 2);
+        UserDoneQuestion udq = new UserDoneQuestion(reyoung, qs, 3);
+        UserDoneQuestion udq2 = new UserDoneQuestion(reyoung, qs2, 2);
         udq.save();
         udq2.save();
-        assertNotSame(0, UsrDoQues.count());
+        assertNotSame(0, UserDoneQuestion.count());
     }
     @Test
     public void ResultInfoModelTest()
