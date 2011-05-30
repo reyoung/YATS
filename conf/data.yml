@@ -18,3 +18,29 @@
     name: lordvv
     passwd: 123321
     type: 2
+
+ Paper(paper_1):
+   name:  paper_1
+   isPublished: false
+   time:  7200
+   author: kuziki
+ Paper(paper_2):
+   name:  paper_2
+   isPublished: true
+   time:  7200
+   author: kuziki
+ Question(question_2_1):
+   title: Do U Love This System?
+   answer: 0
+   seletionA: Very
+   seletionB: So so
+   seletionC: No, the system is too bad!
+   paper: paper_2
+ Question(question_2_1):
+   title: Do U Love Aoi sola?
+   answer: 0
+   seletionA: Very
+   seletionB: So so
+   seletionC: No, the system is too bad!
+   paper: paper_2
+ 

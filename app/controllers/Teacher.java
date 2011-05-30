@@ -71,6 +71,22 @@ public class Teacher extends Controller {
         long id = ModelProxy.AddNewPaper(Security.connected(), PaperName, TestTime);
         draft_edit(id);
     }
+    public static void draft_result(@Required boolean ok){
+        if(Validation.hasErrors()){
+            draft();
+            return ;
+        }
+        String draft_result = ok?"Success":"Fail";
+        render(draft_result);
+    }
+    public static void draft_remove(long paper_id){
+        boolean ok = ModelProxy.RemovePaperByID(Security.connected(), paper_id);
+        draft_result(ok);
+    }
+    public static void draft_publish(long paper_id){
+        boolean ok = ModelProxy.PublishPaperByID(Security.connected(), paper_id);
+        draft_result(ok);
+    }
 
     /**
      * 添加草稿0层的action

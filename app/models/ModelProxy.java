@@ -40,17 +40,21 @@ public class ModelProxy {
      * 删除一个Paper
      * @param username  教师姓名
      * @param id        试卷id
+     * @return          返回是否删除成功,
+     *                   如果这个试卷不是这个教师出的，那么没有权利删除。
      */
-    public void RemovePaperByID(String username,long id){
-        
+    static public boolean RemovePaperByID(String username,long id){
+        return false;
     }
     /**
      * 发布一个paper
      * @param username  教师姓名
      * @param id        试卷ID
+     * @return          返回是否发布成功，
+     *                   如果这个试卷不是这个老师出的，没有权利发布。
      */
-    public void PublishPaperByID(String username,long id){
-        
+    static public boolean PublishPaperByID(String username,long id){
+        return false;
     }
 
     /**
