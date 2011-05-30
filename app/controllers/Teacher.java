@@ -6,6 +6,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import models.ModelProxy;
 import models.User;
 import play.data.validation.Required;
 import play.data.validation.Validation;
@@ -57,11 +58,10 @@ public class Teacher extends Controller {
             flash.error("All Field is Required or Input Format Not Correctly");
             draft_new();
         }
+        ModelProxy.AddNewPaper(Security.connected(), PaperName, TestTime);
         addAction_draft_0();
         render(PaperName,TestTime);
     }
-
-
 
     /**
      * 添加草稿0层的action
