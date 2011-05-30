@@ -29,23 +29,20 @@ public class User extends Model {
     @Column(name = "type", nullable = false)
     public int type;
     
-    @OneToMany(mappedBy="author", cascade=CascadeType.ALL)
-    public List<Paper> papers;
 
     public User(String name, String passwd,int type) {
         this.name = name;
         this.passwd = passwd;
         this.type = type;
-        this.papers = new ArrayList<Paper>();
     }
 
-    public User addPaper(String name)
-    {
-        Paper papers = new Paper(name,false,this);
-        this.papers.add(papers);
-        this.save();
-        return this;
-    }
+//    public User addPaper(String name)
+//    {
+//        Paper papers = new Paper(name,false,this);
+//        this.papers.add(papers);
+//        this.save();
+//        return this;
+//    }
     public static User connect(String name,String passwd){
         return User.find("byNameAndPasswd", name,passwd).first();
     }
