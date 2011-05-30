@@ -1,0 +1,10 @@
+%{if(_arg!=null){}%
+<div id="Papers">
+    <ul id="PaperList">
+        %{for(item in _arg){}%
+        <li><a href="${item.url}">${item.name}</a></li>
+        %{}}%
+    </ul>
+</div>
+%{}else{}%
+%{}}%

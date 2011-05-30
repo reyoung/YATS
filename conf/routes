@@ -16,8 +16,11 @@ GET     /                                       Application.index
 *       /student/                               Student.index
 
 #Teacher Pages
-*       /teacher/                               Teacher.index
-
+*       /teacher/?                              Teacher.index
+*       /teacher/draft                          Teacher.draft
+*       /teacher/draft/list                     Teacher.draft_list
+*       /teacher/draft/new                      Teacher.draft_new
+*       /teacher/draft/new/add_paper_complete   Teacher.draft_new_addpaper
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 

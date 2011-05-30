@@ -8,14 +8,14 @@ package controllers;
  *
  * @author Reyoung
  */
-public class HeaderItem {
+public class MenuItem {
     public String url;
     public String name;
 
-    public HeaderItem() {
+    public MenuItem() {
     }
 
-    public HeaderItem(String url, String name) {
+    public MenuItem(String url, String name) {
         this.url = url;
         this.name = name;
     }

@@ -27,9 +27,9 @@ public class Admin extends Controller{
             User user = User.find("byName", Security.connected()).first();
             renderArgs.put("user", user);
         }
-        List<HeaderItem> headeritem = new ArrayList<HeaderItem>();
-        headeritem.add(new HeaderItem("/logout", "logout"));
-        headeritem.add(new HeaderItem("/about", "about"));
+        List<MenuItem> headeritem = new ArrayList<MenuItem>();
+        headeritem.add(new MenuItem("/logout", "logout"));
+        headeritem.add(new MenuItem("/about", "about"));
         renderArgs.put("headeritem", headeritem);
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
