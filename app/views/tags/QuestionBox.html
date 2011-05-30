@@ -1,0 +1,15 @@
+<table border="1">
+    %{for(i=0;i< _count / 10;++i){}%
+    <tr>
+        %{for(j=0;j<10;++j){
+            if(i*10+j < _count){
+            result = i*10+j;
+        }%
+        <td><a href="${_prefix+result}">${result+1}</a></td>
+        %{
+            }
+        }
+        }%
+    </tr>
+    %{}}%
+</table>
