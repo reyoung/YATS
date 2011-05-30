@@ -7,8 +7,8 @@ import models.*;
 public class BasicTest extends UnitTest {
     @Before
     public void setup(){
-//        Fixtures.deleteAll();
-//        Fixtures.loadModels("data.yml");
+        Fixtures.deleteAll();
+        Fixtures.loadModels("data.yml");
     }
 
     @Test
@@ -54,8 +54,11 @@ public class BasicTest extends UnitTest {
     {
         User reyoung = User.find("byName", "reyoung").first();
         Question qs = Question.find("byTitle", "q1").first();
+        Question qs2 = Question.find("byTitle", "first").first();
         UsrDoQues udq = new UsrDoQues(reyoung, qs, 3);
+        UsrDoQues udq2 = new UsrDoQues(reyoung, qs2, 2);
         udq.save();
+        udq2.save();
         assertNotSame(0, UsrDoQues.count());
     }
     @Test
@@ -67,5 +70,13 @@ public class BasicTest extends UnitTest {
         ResultInfo ri = new ResultInfo(reyoung, mao, start);
         ri.save();
         assertNotSame(0, ResultInfo.count());
+    }
+    @Test
+    public void ResultInfoScoreModelTest()
+    {
+        long id = 1;
+        ResultInfo ri = ResultInfo.findById(id);
+        ri.score();
+        assertTrue((ri.result - 50) < 0.1);
     }
 }

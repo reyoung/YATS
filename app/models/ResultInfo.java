@@ -37,4 +37,30 @@ public class ResultInfo extends Model{
         this.startTime = startTime;
         this.result = -1;
     }
+    public boolean hasComplete()
+    {
+        return (this.result > -0.5);
+    }
+    public double score()
+    {
+        double res = 0;
+        List<Question> qs = Question.find("select q from Question q where q.paper = ?",
+                paper).fetch();
+        int qnum = qs.size();
+        double scorePerQus = 100.0 / qnum;
+        List<UsrDoQues> udq = UsrDoQues.find("byUser", this.user).fetch();
+        if(udq == null || udq.size() == 0)
+        {
+            result = res;
+            this.save();
+            return result;
+        }
+        for(UsrDoQues u : udq)
+        {
+            if(u.answer == u.question.answer)res += scorePerQus;
+        }
+        result = res;
+        this.save();
+        return result;
+    }
 }
