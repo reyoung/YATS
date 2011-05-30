@@ -47,7 +47,8 @@ public class Teacher extends Controller {
 
     public static void draft_list(){
         addAction_draft_0();
-        render();
+        List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected());
+        render(paperlist);
     }
     public static void draft_new(){
         addAction_draft_0();
