@@ -45,7 +45,14 @@ public class ModelProxy {
         //! TODO Complete The Stub
         return new Pair<Long, Integer>(new Long(2),new Integer(1));
     }
-
+    /**
+     * 添加一个桩问题
+     * @param paper_id
+     * @return  返回问题的序号
+     */
+    static public int  NewStubQuestion(long paper_id){
+        return 0;
+    }
     /**
      * 删除一个Question
      * @param paper_id  问题所在试卷的ID
@@ -77,7 +84,7 @@ public class ModelProxy {
      * @param username
      * @return
      */
-    public static List<MenuItem>    GetPaperByTeacher(String username){
+    public static List<MenuItem>    GetPaperByTeacher(String username,boolean published){
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
