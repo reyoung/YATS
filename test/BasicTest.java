@@ -1,3 +1,4 @@
+import controllers.MenuItem;
 import org.junit.*;
 import java.util.*;
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import models.*;
 public class BasicTest extends UnitTest {
     @Before
     public void setup(){
-        Fixtures.deleteAll();
-        Fixtures.loadModels("data.yml");
+        //Fixtures.deleteAll();
+        //Fixtures.loadModels("data.yml");
     }
 
     @Test
@@ -78,5 +79,29 @@ public class BasicTest extends UnitTest {
         ResultInfo ri = ResultInfo.findById(id);
         ri.score();
         assertTrue((ri.result - 50) < 0.1);
+    }
+    @Test
+    public void ModelProxyAddNewPaperTest()
+    {
+        long id = ModelProxy.AddNewPaper("reyoung", "paper_3", 2);
+        assertNotSame(id, 0);
+    }
+    @Test
+    public void ModelProxyGetPaperByTeacherTest()
+    {
+        List<MenuItem> retv = ModelProxy.GetPaperByTeacher("reyoung");
+        assertNotNull(retv);
+    }
+    @Test
+    public void ModelProxyPublishPaperByIDTest()
+    {
+        boolean ans = ModelProxy.PublishPaperByID("reyoung", 1);
+        assertNotSame(ans, false);
+    }
+    @Test
+    public void ModelProxyRemovePaperByIDTest()
+    {
+        boolean ans = ModelProxy.RemovePaperByID("reyoung", 2);
+        assertNotSame(ans, false);
     }
 }

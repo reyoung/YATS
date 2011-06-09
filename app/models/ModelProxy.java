@@ -21,8 +21,11 @@ public class ModelProxy {
      * @return              新建试卷的ID
      */
     public static long AddNewPaper(String username,String papername,double hour){
-        System.out.printf("ModelProxy.AddNewPaper(%s,%s,%f) called", username,papername,hour);
-        return -1;
+        User paperAuthor = User.find("byName", username).first();
+        Paper pap = new Paper(papername,false,(int)(hour * 3600),paperAuthor);
+        pap.save();
+//        System.out.printf("ModelProxy.AddNewPaper(%s,%s,%f) called", username,papername,hour);
+        return pap.id;
     }
     /**
      * 返回一个Teacher的所有Paper ID 和名称
@@ -31,11 +34,25 @@ public class ModelProxy {
      */
     public static List<MenuItem>    GetPaperByTeacher(String username){
         List<MenuItem> retv = new ArrayList<MenuItem>();
-        retv.add(new MenuItem(TeacherPaperId2URL(1), "Paper 1"));
-        retv.add(new MenuItem(TeacherPaperId2URL(2), "Paper 2"));
+        User paperAuthor = User.find("byName", username).first();
+        List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
+        for(Paper p : lp)
+        {
+            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
+        }
+//        retv.add(new MenuItem(TeacherPaperId2URL(2), "Paper 2"));
         return retv;
     }
-
+    /**
+     * 返回一个Paper 下指定题号的题
+     * @param username
+     * @return
+     */
+    public static Question  GetQuestionByPaperAndNo(long paperId,int questionId){
+        Paper paper = Paper.findById(paperId);
+        List<Question> qs = Question.find("byPaper", paper).fetch();
+        return qs.get(questionId);
+    }
     /**
      * 删除一个Paper
      * @param username  教师姓名
@@ -44,6 +61,17 @@ public class ModelProxy {
      *                   如果这个试卷不是这个教师出的，那么没有权利删除。
      */
     static public boolean RemovePaperByID(String username,long id){
+        Paper rep = Paper.find("byId", id).first();
+        if(rep.author.name.equals(username))
+        {
+            List<Question> qs = Question.find("byPaper", rep).fetch();
+            for(Question q : qs)
+            {
+                q.delete();
+            }
+            rep.delete();
+            return true;
+        }
         return false;
     }
     /**
@@ -54,6 +82,13 @@ public class ModelProxy {
      *                   如果这个试卷不是这个老师出的，没有权利发布。
      */
     static public boolean PublishPaperByID(String username,long id){
+        Paper rep = Paper.find("byId", id).first();
+        if(rep.author.name.equals(username))
+        {
+            rep.isPublished = true;
+            rep.save();
+            return true;
+        }
         return false;
     }
 
@@ -64,5 +99,51 @@ public class ModelProxy {
      */
     private static String TeacherPaperId2URL(long id){
         return String.format("/teacher/draft/edit?paper_id=%d", id);
+    }
+    /**
+     * 返回所有当前学生未完成的试卷
+     * @param username
+     * @return
+     */
+    public static List<MenuItem>    GetPaperUnDoneByStudent(String username){
+        List<MenuItem> retv = new ArrayList<MenuItem>();
+        User student = User.find("byName", username).first();
+        List <ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
+        List <Paper> totalPaper = Paper.findAll();
+        for(ResultInfo r : rinfo)
+        {
+            totalPaper.remove(r.paper);
+//            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
+        }
+        for(Paper p : totalPaper)
+        {
+            retv.add(new MenuItem(StudentPaperId2URL(p.id),p.name));
+        }
+//        retv.add(new MenuItem(TeacherPaperId2URL(2), "Paper 2"));
+        return retv;
+    }
+    /**
+     * 返回所有当前学生已完成的试卷
+     * @param username
+     * @return
+     */
+    public static List<MenuItem>    GetPaperDoneByStudent(String username){
+        List<MenuItem> retv = new ArrayList<MenuItem>();
+        User student = User.find("byName", username).first();
+        List <ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
+        for(ResultInfo r : rinfo)
+        {
+            retv.add(new MenuItem(StudentPaperId2URL(r.paper.id),r.paper.name));
+//            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
+        }
+        return retv;
+    }
+     /**
+     * 由Paper_id转成URL
+     * @param id
+     * @return
+     */
+    private static String StudentPaperId2URL(long id){
+        return String.format("/student/test/edit?paper_id=%d", id);
     }
 }
