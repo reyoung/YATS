@@ -3,6 +3,7 @@
  */
 package controllers;
 
+import java.awt.print.Paper;
 import java.util.ArrayList;
 import java.util.List;
 import models.ModelProxy;
@@ -26,7 +27,7 @@ public class Student extends Controller {
             renderArgs.put("user", user);
         }
         List<MenuItem> headeritem = new ArrayList<MenuItem>();
-        headeritem.add(new MenuItem("/student/attend_exam", "Attend Exam"));
+        headeritem.add(new MenuItem("/student/exam", "Attend Exam"));
         headeritem.add(new MenuItem("/student/result", "Results"));
         headeritem.add(new MenuItem("/about", "About"));
         renderArgs.put("headeritem", headeritem);
@@ -35,5 +36,14 @@ public class Student extends Controller {
 
     public static void index() {
         render();
+    }
+
+    private static void addAction_exam_0(){
+        List<MenuItem> acts = new ArrayList<MenuItem>();
+        models.Paper unfinish = ModelProxy.GetUnfinishedPaperByStudentName(Security.connected());
+        if(unfinish!=null){
+            acts.add(new MenuItem(String.format("/student/exam/do?paper_id=%d",unfinish.id),"Unfinished Test"));
+        }
+        acts.add(new MenuItem("/student/exam/list", "All Available Exam"));
     }
 }
