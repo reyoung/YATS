@@ -1,9 +1,19 @@
 #{extends 'main.html' /}
 #{Header items:headeritem, img:headerimg/}
-#{Left}
-#{UserInfoWnd user/}
-#{Action actioncontext/}
-#{/Left}
-<div id="MainContext">
-#{doLayout /}
-</div>
+
+
+<table class="mm">
+    <tr>
+        <td>
+            #{Left}
+            #{UserInfoWnd user/}
+            #{Action actioncontext/}
+            #{/Left}
+        </td>
+        <td>
+            <div id="MainContext">
+                #{doLayout /}
+            </div>
+        </td>
+    </tr>
+</table>

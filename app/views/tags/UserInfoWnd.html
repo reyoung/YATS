@@ -1,9 +1,9 @@
 %{if(_arg!=null){ }%
-<table style="text-align: left; width: 130px; height: 98px;"
- border="1" cellpadding="2" cellspacing="2">
+<table style="text-align: left; width: 200px; height: 260px; background: silver; color: #333333; "
+       border="1" cellpadding="2" cellspacing="2"  >
   <tbody>
     <tr>
-      <td>User: ${_arg.name}<br>
+      <td>User: ${_arg.name}<br><br>
           Type: %{
             if(_arg.type==0){
           }%
@@ -18,6 +18,9 @@
             Admin
           %{}
           }%<br>
+      </td>
+      <tr >
+          <td>
       <div style="text-align: center;"><a href="/logout">Logout</a></div>
       </td>
     </tr>
