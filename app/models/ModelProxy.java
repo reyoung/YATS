@@ -284,15 +284,16 @@ public class ModelProxy {
      * @param answer
      * @return
      */
-    public static Question GetQuestionByStudent(long userId, long paperId, int questionNo, Integer answer) {
+    public static Pair<Question,Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
         User user = User.findById(userId);
         Paper paper = Paper.findById(paperId);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
+        Pair ret = new Pair<Question,Integer>(qsList.get(questionNo),new Integer(-1));
         UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
         if (udq != null) {
-            answer = udq.answer;
+            ret.second = answer;
         }
-        return qsList.get(questionNo);
+        return ret;
     }
 
     /**
