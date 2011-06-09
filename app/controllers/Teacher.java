@@ -49,7 +49,7 @@ public class Teacher extends Controller {
 
     public static void draft_list() {
         addAction_draft_0();
-        List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(),false);
+        List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(), false);
         render(paperlist);
     }
 
@@ -66,9 +66,14 @@ public class Teacher extends Controller {
         int questionCount = ModelProxy.GetPaperQuestionCount(paper_id);
         renderArgs.put("QuestionCount", questionCount);
         renderArgs.put("QuestionPrefix", String.format("/teacher/draft/edit?paper_id=%d&question_id=", paper_id));
-        Question q = ModelProxy.GetQuestionByPaperAndNo(paper_id, question_id);
-        renderArgs.put("Question", q);
-        render(paper_id);
+        if (question_id < questionCount) {
+            Question q = ModelProxy.GetQuestionByPaperAndNo(paper_id, question_id);
+            renderArgs.put("Question", q);
+            render(paper_id);
+        }else{
+            draft_new_question(paper_id);
+        }
+        
     }
 
     public static void draft_new_addPaper(@Required String PaperName, @Required double TestTime) {
@@ -140,7 +145,7 @@ public class Teacher extends Controller {
 //        System.out.printf("Delete Question ID = %d\n", question_id);
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         ModelProxy.DeleteQuestion(question_id);
-        Teacher.draft_edit(context.first, context.second-1>=0?context.second-1:0);
+        Teacher.draft_edit(context.first, context.second - 1 >= 0 ? context.second - 1 : 0);
     }
 
     /**
