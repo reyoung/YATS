@@ -14,6 +14,37 @@ import java.util.List;
  */
 public class ModelProxy {
     /**
+     * Pair
+     * @param <T1>
+     * @param <T2>
+     */
+    static public class Pair<T1,T2>{
+        public T1 first;
+        public T2 second;
+        public Pair() {
+        }
+        public Pair(T1 first, T2 second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+    /**
+     * 返回一个Paper的问题数量
+     * @param paperid   paper_id
+     * @return
+     */
+    public static int GetPaperQuestionCount(long paperid){
+        return ((Paper)Paper.findById(paperid)).questions.size();
+    }
+    /**
+     * 返回PaperId和Paper中的题目序号
+     * @param questionid    question_id
+     * @return  Pair,前者是PaperID，后者是Paper中题目的序号。
+     */
+   static public Pair<Long,Integer>  GetPaperIdNQuestionNoByQuestionId(long questionid){
+        return new Pair<Long, Integer>(new Long(2),new Integer(1));
+    }
+    /**
      * 向数据库中新建一个试卷
      * @param username      出题人
      * @param papername     试卷名称
