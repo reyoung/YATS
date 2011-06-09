@@ -6,6 +6,7 @@ package models;
 
 import controllers.MenuItem;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -96,14 +97,32 @@ public class ModelProxy {
         return retv;
     }
     /**
+     * 存储一道题目（老师专用）
+     * @param paperId
+     * @param question
+     * @return
+     */
+    public static boolean SaveQuestionByTeacher(long paperId ,String title, int answer,List<String> selections)
+    {
+        boolean ans = false;
+        if(selections.size() > 2)
+        {
+            Paper paper = Paper.findById(paperId);
+            Question qs = new Question(title, answer,selections.get(0),selections.get(1),selections.get(2), paper);
+            qs.saveSelection(selections);
+            return true;
+        }
+        return ans;
+    }
+    /**
      * 返回一个Paper 下指定题号的题
      * @param username
      * @return
      */
-    public static Question  GetQuestionByPaperAndNo(long paperId,int questionId){
+    public static Question  GetQuestionByPaperAndNo(long paperId,int questionNo){
         Paper paper = Paper.findById(paperId);
         List<Question> qs = Question.find("byPaper", paper).fetch();
-        return qs.get(questionId);
+        return qs.get(questionNo);
     }
     /**
      * 删除一个Paper
@@ -143,7 +162,6 @@ public class ModelProxy {
         }
         return false;
     }
-
     /**
      * 由Paper_id转成URL
      * @param id
@@ -189,6 +207,60 @@ public class ModelProxy {
 //            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
         }
         return retv;
+    }
+    /**
+     * 学生存储答题信息
+     * @param userId
+     * @param questionId
+     * @param answer
+     * @return
+     */
+    public static void SaveQuestionByStudent(long userId , long questionId,int answer)
+    {
+        UserDoneQuestion udq = new UserDoneQuestion((User)User.findById(userId),
+                (Question)Question.findById(questionId), answer);
+        udq.save();
+    }
+    /**
+     * 保存考试开始信息
+     * @param userId
+     * @param paperId
+     * @param startTime
+     */
+    public static void StartPaper(long userId,long paperId,Date startTime)
+    {
+        ResultInfo ri = new ResultInfo((User)User.findById(userId),
+                (Paper)Paper.findById(paperId), startTime);
+        ri.save();
+    }
+    /**
+     * 存储/返回学生的某张试卷的成绩
+     * @param userId
+     * @param paperId
+     * @return
+     */
+    public static double GetScore(long userId,long paperId)
+    {
+        ResultInfo ri = ResultInfo.find("byUserAndPaper",
+                (User)User.findById(userId),(Paper)Paper.findById(paperId)).first();
+        return ri.score();
+    }
+    /**
+     * 按照学生ID,试卷ID，试题序号返回试题，若已做过，则第三个参数返回答案
+     * @param userId
+     * @param paperId
+     * @param questionNo
+     * @param answer
+     * @return
+     */
+    public static Question GetQuestionByStudent(long userId,long paperId,int questionNo,Integer answer)
+    {
+        User user = User.findById(userId);
+        Paper paper = Paper.findById(paperId);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user,qsList.get(questionNo)).first();
+        if(udq != null)answer = udq.answer;
+        return qsList.get(questionNo);
     }
      /**
      * 由Paper_id转成URL
