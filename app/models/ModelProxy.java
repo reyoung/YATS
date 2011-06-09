@@ -63,6 +63,15 @@ public class ModelProxy {
         //! TODO Complete The Stub
         return true;
     }
+    /**
+     * 返回一个学生ID所能参加的所有考试
+     * @param student_id
+     * @return
+     */
+    static public List<Paper> GetAvailablePaperByStudentId(long student_id){
+        //! TODO Complete The Stub
+        return new ArrayList<Paper>();
+    }
 
 
     /**
@@ -237,12 +246,11 @@ public class ModelProxy {
      * 保存考试开始信息
      * @param userId
      * @param paperId
-     * @param startTime
      */
-    public static void StartPaper(long userId,long paperId,Date startTime)
+    public static void StartPaper(long userId,long paperId)
     {
         ResultInfo ri = new ResultInfo((User)User.findById(userId),
-                (Paper)Paper.findById(paperId), startTime);
+                (Paper)Paper.findById(paperId), new Date(System.currentTimeMillis()));
         ri.save();
     }
     /**
