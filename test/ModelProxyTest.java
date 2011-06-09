@@ -1,5 +1,6 @@
 
 import controllers.MenuItem;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.ModelProxy;
@@ -52,5 +53,16 @@ public class ModelProxyTest extends UnitTest{
         Question qs = ModelProxy.GetQuestionByStudent(1, 2, 0, ans);
         assertNotNull(qs);
         //assertNotSame(ans, -1);
+    }
+    @Test
+    public void ModelProxyUpdateQuestionByTeacher()
+    {
+        boolean ans = false;
+        List<String> ls = new ArrayList<String>();
+        ls.add("Very");
+        ls.add("just so so ");
+        ls.add("hate");
+        ls.add("Unknown");
+        ans = ModelProxy.UpdateQuestionByTeacher(1,"Do you love Sola" , 2, ls);
     }
 }
