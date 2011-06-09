@@ -113,6 +113,19 @@ public class ModelProxy {
         }
         return ans;
     }
+    public static boolean UpdateQuestionByTeacher(long questionId,String title,int answer,List<String> seletions)
+    {
+        boolean ans = false;
+        if(seletions.size() > 2)
+        {
+            Question qs = Question.findById(questionId);
+            qs.title = title;
+            qs.answer = answer;
+            qs.saveSelection(seletions);
+            return true;
+        }
+        return ans;
+    }
     /**
      * 返回一个Paper 下指定题号的题
      * @param username
