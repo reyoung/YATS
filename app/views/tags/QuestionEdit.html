@@ -1,0 +1,15 @@
+<form action="@{Teacher.draft_submit()}" method="post"
+ name="QuestionForm"><input name="question_id"
+ value="${_arg.id}" type="hidden">Question:<input
+ value="${_arg.title}" name="Q:"><br>
+Answer:&nbsp;<input name="answer" value="${_arg.answer}"><br>
+0.<input name="seletion_a" value="${_arg.seletionA}"><br>
+1.<input name="seletionB" value="${_arg.seletionB}"><br>
+2.<input name="seletionC" value="${_arg.seletionC}"><br>
+3.<input name="seletionD" value="${_arg.seletionD}"><br>
+4.<input name="seletionE" value="${_arg.seletionE}"><br>
+5.<input name="seletionF" value="${_arg.seletionF}"><br>
+6.<input name="seletionG" value="${_arg.seletionG}"><br>
+7.<input name="seletionH" value="${_arg.seletionH}"><br>
+  <input name="submit" value="Submit" type="submit">
+  <input name="delete" value="Delete" type="button" onclick="alert('R U Sure?')"></form>

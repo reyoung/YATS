@@ -15,6 +15,58 @@ import java.util.List;
  */
 public class ModelProxy {
     /**
+     * Pair
+     * @param <T1>
+     * @param <T2>
+     */
+    static public class Pair<T1,T2>{
+        public T1 first;
+        public T2 second;
+        public Pair() {
+        }
+        public Pair(T1 first, T2 second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+    /**
+     * 返回一个Paper的问题数量
+     * @param paperid   paper_id
+     * @return
+     */
+    public static int GetPaperQuestionCount(long paperid){
+        return ((Paper)Paper.findById(paperid)).questions.size();
+    }
+    /**
+     * 返回PaperId和Paper中的题目序号
+     * @param questionid    question_id
+     * @return  Pair,前者是PaperID，后者是Paper中题目的序号。
+     */
+    static public Pair<Long,Integer>  GetPaperIdNQuestionNoByQuestionId(long questionid){
+        //! TODO Complete The Stub
+        return new Pair<Long, Integer>(new Long(2),new Integer(1));
+    }
+    /**
+     * 添加一个桩问题
+     * @param paper_id
+     * @return  返回问题的序号
+     */
+    static public int  NewStubQuestion(long paper_id){
+        return 0;
+    }
+    /**
+     * 删除一个Question
+     * @param paper_id  问题所在试卷的ID
+     * @param question_no   问题的序号
+     * @return  是否成功
+     */
+    static public boolean DeleteQuestion(long paper_id,int question_no){
+        //! TODO Complete The Stub
+        return true;
+    }
+
+
+    /**
      * 向数据库中新建一个试卷
      * @param username      出题人
      * @param papername     试卷名称
@@ -33,7 +85,7 @@ public class ModelProxy {
      * @param username
      * @return
      */
-    public static List<MenuItem>    GetPaperByTeacher(String username){
+    public static List<MenuItem>    GetPaperByTeacher(String username,boolean published){
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();

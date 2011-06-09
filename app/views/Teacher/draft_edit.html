@@ -1,7 +1,10 @@
 #{extends 'main.html' /}
 #{Header items:headeritem, img:headerimg/}
 #{Left}
-#{QuestionBox count:32,prefix:"/teacher/edit/question?id="/}
+#{QuestionBox count:QuestionCount,prefix:QuestionPrefix /}
 #{UserInfoWnd user/}
 #{Action actioncontext/}
 #{/Left}
+<div id="MainContext">
+#{QuestionEdit Question /}
+</div>
