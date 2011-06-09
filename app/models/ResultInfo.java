@@ -43,6 +43,10 @@ public class ResultInfo extends Model{
     }
     public double score()
     {
+        if(hasComplete())
+        {
+            return result;
+        }
         double res = 0;
         List<Question> qs = Question.find("select q from Question q where q.paper = ?",
                 paper).fetch();
