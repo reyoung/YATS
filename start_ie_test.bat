@@ -1,1 +1,1 @@
-"C:\Program Files\Internet Explorer\iexplore" "http://localhost:9000/@tests"
+"C:\Program Files\Internet Explorer\iexplore" "http://localhost:4444/@tests"

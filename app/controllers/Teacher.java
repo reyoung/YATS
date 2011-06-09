@@ -114,7 +114,7 @@ public class Teacher extends Controller {
         _add_answer(anslist, seletion_g);
         _add_answer(anslist, seletion_h);
 //        System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
-        /// TODO    Save The Question Change  && Delete Connect
+        /// TODO    Save The Question Change
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         Teacher.draft_edit(context.first, context.second);
     }
@@ -133,12 +133,14 @@ public class Teacher extends Controller {
         }
     }
 
-    public static void draft_delete_question(@Required long paper_id, @Required int question_no) {
+    public static void draft_delete_question(@Required long question_id) {
         if (Validation.hasErrors()) {
             index();
         }
-        ModelProxy.DeleteQuestion(paper_id, question_no);
-        draft_edit(paper_id, question_no - 1 >= 0 ? question_no - 1 : 0);
+//        System.out.printf("Delete Question ID = %d\n", question_id);
+        ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
+        ModelProxy.DeleteQuestion(question_id);
+        Teacher.draft_edit(context.first, context.second-1>=0?context.second-1:0);
     }
 
     /**

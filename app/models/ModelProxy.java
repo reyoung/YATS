@@ -56,11 +56,10 @@ public class ModelProxy {
     }
     /**
      * 删除一个Question
-     * @param paper_id  问题所在试卷的ID
-     * @param question_no   问题的序号
+     * @param question_id  问题所在试卷的ID
      * @return  是否成功
      */
-    static public boolean DeleteQuestion(long paper_id,int question_no){
+    static public boolean DeleteQuestion(long question_id){
         //! TODO Complete The Stub
         return true;
     }
