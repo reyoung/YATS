@@ -68,7 +68,6 @@ public class Teacher extends Controller {
         renderArgs.put("QuestionCount", questionCount);
         renderArgs.put("QuestionPrefix", String.format("/teacher/draft/edit?paper_id=%d&question_id=", paper_id));
         Question q = ModelProxy.GetQuestionByPaperAndNo(paper_id, question_id);
-//        System.out.printf("Question %s \n", q.title);
         renderArgs.put("Question", q);
         render();
     }
@@ -106,7 +105,7 @@ public class Teacher extends Controller {
             index();
         }
         System.out.printf("Question ID = %d Title = %s Answer = %d\n", question_id, title, answer);
-        List<String > anslist = new ArrayList<String>();
+        List<String> anslist = new ArrayList<String>();
         _add_answer(anslist, seletion_a);
         _add_answer(anslist, seletion_b);
         _add_answer(anslist, seletion_c);
@@ -116,15 +115,25 @@ public class Teacher extends Controller {
         _add_answer(anslist, seletion_g);
         _add_answer(anslist, seletion_h);
         System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
-        /// TODO    Save The Question Change
-        ModelProxy.Pair<Long,Integer>  context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
+        /// TODO    Save The Question Change  && Delete Connect
+        ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         Teacher.draft_edit(context.first, context.second);
     }
-    private static void _add_answer(List<String > ansList,String ans){
-        if(ans!=null&&!ans.isEmpty()){
+
+    private static void _add_answer(List<String> ansList, String ans) {
+        if (ans != null && !ans.isEmpty()) {
             ansList.add(ans);
         }
     }
+
+    public static void draft_delete_question(@Required long paper_id, @Required int question_no) {
+        if (Validation.hasErrors()) {
+            index();
+        }
+        ModelProxy.DeleteQuestion(paper_id, question_no);
+        draft_edit(paper_id, question_no-1>=0?question_no-1:0);
+    }
+
     /**
      * 添加草稿0层的action
      */

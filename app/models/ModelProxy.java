@@ -41,9 +41,23 @@ public class ModelProxy {
      * @param questionid    question_id
      * @return  Pair,前者是PaperID，后者是Paper中题目的序号。
      */
-   static public Pair<Long,Integer>  GetPaperIdNQuestionNoByQuestionId(long questionid){
+    static public Pair<Long,Integer>  GetPaperIdNQuestionNoByQuestionId(long questionid){
+        //! TODO Complete The Stub
         return new Pair<Long, Integer>(new Long(2),new Integer(1));
     }
+
+    /**
+     * 删除一个Question
+     * @param paper_id  问题所在试卷的ID
+     * @param question_no   问题的序号
+     * @return  是否成功
+     */
+    static public boolean DeleteQuestion(long paper_id,int question_no){
+        //! TODO Complete The Stub
+        return true;
+    }
+
+
     /**
      * 向数据库中新建一个试卷
      * @param username      出题人

@@ -24,6 +24,7 @@ GET     /                                       Application.index
 *       /teacher/draft/edit                     Teacher.draft_edit
 *       /teacher/draft/remove                   Teacher.draft_remove
 *       /teacher/draft/publish                  Teacher.draft_publish
+*       /teacher/draft/question/delete          Teacher.draft_delete_question
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 
