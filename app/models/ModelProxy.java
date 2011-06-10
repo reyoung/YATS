@@ -15,6 +15,23 @@ import java.util.List;
 public class ModelProxy {
 
     /**
+     * 返回学生当前的问题状态。true表示已回答过，false表示未回答过。
+     * @param studentname
+     * @param paper_id
+     * @return
+     */
+    List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
+        //! TODO Complete the Stub
+        List<Boolean> retv = new ArrayList<Boolean>();
+        retv.add(Boolean.TRUE);
+        retv.add(Boolean.FALSE);
+        retv.add(Boolean.TRUE);
+        return retv;
+    }
+
+
+
+    /**
      * Pair
      * @param <T1>
      * @param <T2>
