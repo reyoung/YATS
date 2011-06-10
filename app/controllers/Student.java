@@ -58,11 +58,18 @@ public class Student extends Controller {
 
     public static void exam_start(@Required long paper_id){
         ModelProxy.StartPaper(Security.connected(), paper_id);
+        
         exam_take(paper_id, 0);
     }
 
     public static void exam_take(@Required long paper_id,@Required int question_no){
-        render();
+        List<Boolean> list = ModelProxy.GetQuestionsStatusByStudentName(Security.connected(),paper_id);
+        boolean [] StatusList = new boolean [list.size()];
+        for(int i=0;i<list.size();++i){
+            StatusList[i] = list.get(i).booleanValue();
+        }
+        String EditPrefix = String.format("/student/exam/take?paper_id=%d&question_no=", paper_id);
+        render(StatusList,EditPrefix);
     }
 
     private static List<MenuItem> _getPaperListUrl(String prefix, List<Paper> plist) {

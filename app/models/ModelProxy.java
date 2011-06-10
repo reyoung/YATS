@@ -20,7 +20,7 @@ public class ModelProxy {
      * @param paper_id
      * @return
      */
-    List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
+    public static List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
         //! TODO Complete the Stub
         List<Boolean> retv = new ArrayList<Boolean>();
         retv.add(Boolean.TRUE);
