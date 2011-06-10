@@ -316,9 +316,21 @@ public class ModelProxy {
      * @return
      */
     public static void SaveQuestionByStudent(String username, long questionId, int answer) {
-        UserDoneQuestion udq = new UserDoneQuestion((User) User.find("byName",username).first(),
+        User user = User.find("byName", username).first();
+        Question qs = Question.findById(questionId);
+        UserDoneQuestion ud = UserDoneQuestion.find("byUserAndQuestion", user,qs).first();
+        if(ud != null)
+        {
+            ud.answer = answer;
+            ud.save();
+            return;
+        }
+        else
+        {
+            UserDoneQuestion udq = new UserDoneQuestion((User) User.find("byName", username).first(),
                 (Question) Question.findById(questionId), answer);
-        udq.save();
+            udq.save();
+        }
     }
 
     /**

@@ -65,6 +65,11 @@ public class ModelProxyTest2 extends UnitTest{
     @Test
     public void StartPaperTest()
     {
-        //ModelProxy.StartPaper("reyoung", 2);
+        ModelProxy.StartPaper("reyoung", 3);
+    }
+    @Test
+    public void SaveQuestionByStudentTest()
+    {
+        ModelProxy.SaveQuestionByStudent("reyoung", 4, 1);
     }
 }
