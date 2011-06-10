@@ -52,7 +52,7 @@ public class ModelProxy {
         Paper paper = qs.paper;
         List<Question> qsList = Question.find("byPaper", paper).fetch();
         Integer No = qsList.indexOf(qs);
-        return new Pair<Long, Integer>(qs.paper.id,No);
+        return new Pair<Long, Integer>(qs.paper.id, No);
     }
 
     /**
@@ -62,9 +62,9 @@ public class ModelProxy {
      */
     static public int NewStubQuestion(long paper_id) {
         Paper paper = Paper.findById(paper_id);
-        Question qs = new Question("This is a Stub Question",1, "Seletion A", "Selection B", "Selection", paper);
+        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "Selection", paper);
         qs.save();
-        return (int)Question.count("byPaper", paper);
+        return (int) Question.count("byPaper", paper);
     }
 
     /**
@@ -74,7 +74,9 @@ public class ModelProxy {
      */
     static public boolean DeleteQuestion(long question_id) {
         Question qs = Question.findById(question_id);
-        if(qs.paper.isPublished == true)return false;
+        if (qs.paper.isPublished == true) {
+            return false;
+        }
         qs.delete();
         return true;
     }
@@ -85,11 +87,10 @@ public class ModelProxy {
      * @return
      */
     static public List<Paper> GetAvailablePaperByStudentName(String name) {
-        List <Paper> tPaper = Paper.find("byIsPublished", true).fetch();
+        List<Paper> tPaper = Paper.find("byIsPublished", true).fetch();
         User student = User.find("byName", name).first();
         List<ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
-        for(ResultInfo r : rinfo)
-        {
+        for (ResultInfo r : rinfo) {
             tPaper.remove(r.paper);
         }
         return tPaper;
@@ -99,10 +100,8 @@ public class ModelProxy {
         User student = User.find("byName", name).first();
         List<ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
         List<Paper> paper = new ArrayList<Paper>();
-        for(ResultInfo r : rinfo)
-        {
-            if(r.hasComplete() == false)
-            {
+        for (ResultInfo r : rinfo) {
+            if (r.hasComplete() == false) {
                 paper.add(r.paper);
             }
         }
@@ -149,8 +148,22 @@ public class ModelProxy {
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
-        for (Paper p : lp) {
-            retv.add(new MenuItem(TeacherPaperId2URL(p.id), p.name));
+        if (published) {
+            for (Paper p : lp) {
+                if(p.isPublished)
+                {
+                    retv.add(new MenuItem(TeacherPaperId2URL(p.id), p.name));
+                }
+            }
+        }
+        else
+        {
+            for (Paper p : lp) {
+                if(!p.isPublished)
+                {
+                    retv.add(new MenuItem(TeacherPaperId2URL(p.id), p.name));
+                }
+            }
         }
         return retv;
     }
@@ -306,11 +319,11 @@ public class ModelProxy {
      * @param answer
      * @return
      */
-    public static Pair<Question,Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
+    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
         User user = User.findById(userId);
         Paper paper = Paper.findById(paperId);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
-        Pair ret = new Pair<Question,Integer>(qsList.get(questionNo),new Integer(-1));
+        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
         UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
         if (udq != null) {
             ret.second = answer;
