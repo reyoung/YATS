@@ -10,6 +10,18 @@
     name: reyoung
     passwd: 123321
     type: 0
+ User(stu1):
+    name: stu1
+    passwd: 123321
+    type: 0
+ User(stu2):
+    name: stu2
+    passwd: 123321
+    type: 0
+ User(stu3):
+    name: stu3
+    passwd: 123321
+    type: 0
  User(kuziki):
     name: kuziki
     passwd: 123321
@@ -43,5 +55,5 @@
    seletionB: So so
    seletionC: No, the system is too bad!
    paper: paper_2
- 
+
  

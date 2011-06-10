@@ -15,7 +15,7 @@ import java.util.List;
 public class ModelProxy {
 
     public static void StudentFinishPaper(String username,long paper_id){
-        //! TODO Complete The Stub
+        ModelProxy.GetScore(((User)User.find("byName", username).first()).id, paper_id);
     }
 
     public static int GetQuestionNoOfPaper(long q_id,long p_id){
