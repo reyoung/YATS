@@ -124,7 +124,6 @@ public class Teacher extends Controller {
         _add_answer(anslist, seletion_g);
         _add_answer(anslist, seletion_h);
         System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
-        /// TODO    Save The Question Change
         ModelProxy.UpdateQuestionByTeacher(question_id, title, answer, anslist);
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         Teacher.draft_edit(context.first, context.second);
@@ -186,7 +185,6 @@ public class Teacher extends Controller {
             index();
         }
         add_publish_actions(paper_id);
-        System.out.printf("Paper ID = %d\n", paper_id);
         render();
     }
 

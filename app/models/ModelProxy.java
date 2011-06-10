@@ -344,4 +344,46 @@ public class ModelProxy {
     private static String StudentPaperId2URL(long id) {
         return String.format("/student/test/edit?paper_id=%d", id);
     }
+
+    /**
+     * 获得参加考试的人数
+     * @param paper_id
+     * @return
+     */
+    public static int   GetAttendExamStudentCount(long paper_id){
+        //! TODO Complete The Stub
+        return 0;
+    }
+
+    /**
+     * 获得试卷平均分
+     * @param paper_id
+     * @return
+     */
+    public static double GetAvgScoreByPaperId(long paper_id){
+        //! TODO Complete The Stub
+        return 4.4;
+    }
+    /**
+     * 获得学生分数分布情况
+     * @param paper_id
+     * @param demension 分布区间
+     * @return 返回一个demension长度的int数组。
+     * @note 例如，100分的试卷，demension是2，则求前50分人数，和后50分人数，返回数组。
+     *                          demonsion是4，则每25分返回人数。
+     */
+    public static int[] GetDistributePeopleNumberByPaperId(long paper_id,int demension){
+        //! TODO Complete The Stub
+        return null;
+    }
+    /**
+     * 返回试卷的正确率
+     * @param paper_id
+     * @return  数组，数组序号表示题号，Pair的第1项表示正确人数，Pair第二项表示错误人数
+     * @note 例如 { <2,3>，<3,2>,<1,4> },表示第一道题2个人对，3个人错，第二题3个人对，两个人错。
+     */
+    public static List<Pair<Integer,Integer> >  GetCorrectRateByPaperId(long paper_id){
+        //! TODO Complete The Stub
+        return null;
+    }
 }
