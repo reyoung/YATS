@@ -35,7 +35,7 @@ public class Teacher extends Controller {
         renderArgs.put("headeritem", headeritem);
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
-
+//!--------------------------------------------------DRAFT--------------------
     /**
      * 草稿页面
      */
@@ -71,6 +71,7 @@ public class Teacher extends Controller {
             renderArgs.put("Question", q);
             render(paper_id);
         }else{
+            System.out.printf("No Question For This Paper\n");
             draft_new_question(paper_id);
         }
         
@@ -90,6 +91,7 @@ public class Teacher extends Controller {
             draft();
             return;
         }
+        
         String draft_result = ok ? "Success" : "Fail";
         render(draft_result);
     }
@@ -106,9 +108,10 @@ public class Teacher extends Controller {
 
     public static void draft_submit(@Required long question_id, @Required String title, @Required int answer, String seletion_a, String seletion_b, String seletion_c, String seletion_d, String seletion_e, String seletion_f, String seletion_g, String seletion_h) {
         if (Validation.hasErrors()) {
+            System.out.printf("Submit Has Error\n");
             index();
         }
-//        System.out.printf("Question ID = %d Title = %s Answer = %d\n", question_id, title, answer);
+        System.out.printf("Question ID = %d Title = %s Answer = %d\n", question_id, title, answer);
         List<String> anslist = new ArrayList<String>();
         _add_answer(anslist, seletion_a);
         _add_answer(anslist, seletion_b);
@@ -118,8 +121,9 @@ public class Teacher extends Controller {
         _add_answer(anslist, seletion_f);
         _add_answer(anslist, seletion_g);
         _add_answer(anslist, seletion_h);
-//        System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
+        System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
         /// TODO    Save The Question Change
+        ModelProxy.UpdateQuestionByTeacher(question_id, title, answer, anslist);
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         Teacher.draft_edit(context.first, context.second);
     }
@@ -142,7 +146,7 @@ public class Teacher extends Controller {
         if (Validation.hasErrors()) {
             index();
         }
-//        System.out.printf("Delete Question ID = %d\n", question_id);
+        System.out.printf("Delete Question ID = %d\n", question_id);
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         ModelProxy.DeleteQuestion(question_id);
         Teacher.draft_edit(context.first, context.second - 1 >= 0 ? context.second - 1 : 0);
@@ -166,6 +170,11 @@ public class Teacher extends Controller {
         actions.add(new MenuItem(String.format("/teacher/draft/new_question?paper_id=%d", paper_id), "New Question"));
         actions.add(new MenuItem(String.format("/teacher/draft/publish?paper_id=%d", paper_id), "Publish"));
         actions.add(new MenuItem(String.format("/teacher/draft/remove?paper_id=%d", paper_id), "Remove"));
+        actions.add(new MenuItem("/teacher/draft", "Return"));
         renderArgs.put("actioncontext", actions);
     }
+
+
+ //!-------------------------------PUBLISH-----------------------------
+    
 }
