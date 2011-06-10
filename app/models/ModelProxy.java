@@ -62,9 +62,9 @@ public class ModelProxy {
      */
     static public int NewStubQuestion(long paper_id) {
         Paper paper = Paper.findById(paper_id);
-        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "Selection", paper);
+        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "Selection C", paper);
         qs.save();
-        return (int) Question.count("byPaper", paper);
+        return (int) (Question.count("byPaper", paper)-1);
     }
 
     /**
