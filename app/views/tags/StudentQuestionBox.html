@@ -1,0 +1,21 @@
+<table border="1">
+    %{for(i=0;i< _list.size() / 10;++i){}%
+    <tr>
+        %{for(j=0;j<10;++j){
+            result = i*10+j;
+            if(i*10+j < _list.length){
+                if(_list[result]){
+        }%
+        <td class="DONE"><a href="${_prefix+result}">${result+1}</a></td>
+        %{
+                }else{
+        }%
+        <td class="UNDONE"><a href="${_prefix+result}">${result+1}</a></td>
+        %{
+                }
+            }
+        }
+        }%
+    </tr>
+    %{}}%
+</table>

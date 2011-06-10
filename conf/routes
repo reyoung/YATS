@@ -15,6 +15,12 @@ GET     /                                       Application.index
 #Student Pages
 *       /student/                               Student.index
 *       /student/exam                           Student.exam
+*       /student/exam/list                      Student.exam_list
+*       /student/exam/attend                    Student.exam_attend
+*       /student/exam/start                     Student.exam_start
+*       /student/exam/take                      Student.exam_take
+*       /student/exam/finish                    Student.exam_finish
+
 #Teacher Pages
 *       /teacher/?                              Teacher.index
 *       /teacher/draft                          Teacher.draft
@@ -26,6 +32,9 @@ GET     /                                       Application.index
 *       /teacher/draft/publish                  Teacher.draft_publish
 *       /teacher/draft/question/delete          Teacher.draft_delete_question
 *       /teacher/draft/new_question             Teacher.draft_new_question
+*       /teacher/published                      Teacher.published
+*       /teacher/published/stat                 Teacher.stat
+*       /teacher/stat/distribute      Teacher.stat_distribute
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 

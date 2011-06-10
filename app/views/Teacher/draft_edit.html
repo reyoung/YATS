@@ -1,10 +1,21 @@
 #{extends 'main.html' /}
 #{Header items:headeritem, img:headerimg/}
-#{Left}
-#{QuestionBox count:QuestionCount,prefix:QuestionPrefix /}
-#{UserInfoWnd user/}
-#{Action actioncontext/}
-#{/Left}
-<div id="MainContext">
-#{QuestionEdit Question /}
-</div>
+
+
+
+<table class="mm">
+    <tr>
+        <td>
+            #{Left}
+            #{QuestionBox count:QuestionCount,prefix:QuestionPrefix /}
+            #{UserInfoWnd user/}
+            #{Action actioncontext/}
+            #{/Left}
+        </td>
+        <td width=900px  valign="top" >
+            <div id="MainContext">
+                #{QuestionEdit Question /}
+            </div>
+        </td>
+    </tr>
+</table>

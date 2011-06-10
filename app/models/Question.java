@@ -60,14 +60,30 @@ public class Question extends Model {
 
     public List<String> getSelections() {
         List<String> retv = new ArrayList<String>();
-        retv.add(seletionA);
-        retv.add(seletionB);
-        retv.add(seletionC);
-        retv.add(seletionD);
-        retv.add(seletionE);
-        retv.add(seletionF);
-        retv.add(seletionG);
-        retv.add(seletionH);
+        if (!seletionA.isEmpty()) {
+            retv.add(seletionA);
+        }
+        if (!seletionB.isEmpty()) {
+            retv.add(seletionB);
+        }
+        if (!seletionC.isEmpty()) {
+            retv.add(seletionC);
+        }
+        if (!seletionD.isEmpty()) {
+            retv.add(seletionD);
+        }
+        if (!seletionE.isEmpty()) {
+            retv.add(seletionE);
+        }
+        if (!seletionF.isEmpty()) {
+            retv.add(seletionF);
+        }
+        if (!seletionG.isEmpty()) {
+            retv.add(seletionG);
+        }
+        if (!seletionH.isEmpty()) {
+            retv.add(seletionH);
+        }
         return retv;
     }
 

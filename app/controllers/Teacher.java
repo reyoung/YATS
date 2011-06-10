@@ -36,6 +36,7 @@ public class Teacher extends Controller {
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
 //!--------------------------------------------------DRAFT--------------------
+
     /**
      * 草稿页面
      */
@@ -70,11 +71,11 @@ public class Teacher extends Controller {
             Question q = ModelProxy.GetQuestionByPaperAndNo(paper_id, question_id);
             renderArgs.put("Question", q);
             render(paper_id);
-        }else{
+        } else {
             System.out.printf("No Question For This Paper\n");
             draft_new_question(paper_id);
         }
-        
+
     }
 
     public static void draft_new_addPaper(@Required String PaperName, @Required double TestTime) {
@@ -91,7 +92,7 @@ public class Teacher extends Controller {
             draft();
             return;
         }
-        
+
         String draft_result = ok ? "Success" : "Fail";
         render(draft_result);
     }
@@ -122,7 +123,6 @@ public class Teacher extends Controller {
         _add_answer(anslist, seletion_g);
         _add_answer(anslist, seletion_h);
         System.out.printf("Qustion Answer Sz = %d \n", anslist.size());
-        /// TODO    Save The Question Change
         ModelProxy.UpdateQuestionByTeacher(question_id, title, answer, anslist);
         ModelProxy.Pair<Long, Integer> context = ModelProxy.GetPaperIdNQuestionNoByQuestionId(question_id);
         Teacher.draft_edit(context.first, context.second);
@@ -174,7 +174,31 @@ public class Teacher extends Controller {
         renderArgs.put("actioncontext", actions);
     }
 
+    //!-------------------------------PUBLISH-----------------------------
+    public static void published() {
+        List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(), true);
+        render(paperlist);
+    }
 
- //!-------------------------------PUBLISH-----------------------------
-    
+    public static void stat(@Required long paper_id) {
+        if (Validation.hasErrors()) {
+            index();
+        }
+        stat_distribute(paper_id);
+    }
+
+    public static void stat_distribute(@Required long paper_id) {
+        if (Validation.hasErrors()) {
+            index();
+        }
+        add_publish_actions(paper_id);
+        render();
+    }
+
+    private static void add_publish_actions(long paper_id) {
+        List<MenuItem> actions = new ArrayList<MenuItem>();
+        actions.add(new MenuItem(String.format("/teacher/stat/distribute?paper_id=%d", paper_id), "Distribute"));
+        actions.add(new MenuItem(String.format("/teacher/stat/correct_rate?paper_id=%d", paper_id), "Correct Rate"));
+        renderArgs.put("actioncontext", actions);
+    }
 }

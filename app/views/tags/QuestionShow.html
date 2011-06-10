@@ -1,0 +1,31 @@
+<form method="post" action="@{Student.question_submit()}" name="QuestionShow">${_arg.first.title}<br>
+    <input name="select_id" value="0"
+           type="radio">${_arg.first.seletionA}<br>
+    <input name="select_id" value="1"
+           type="radio">${_arg.first.seletionB}<br>
+    <input name="select_id" value="2"
+           type="radio">${_arg.first.seletionC}<br>
+    %{if(_arg.first.seletionD!=null){}%
+    <input name="select_id" value="3"
+           type="radio">${_arg.first.seletionD}<br>
+    %{if(_arg.first.seletionE!=null){}%
+    <input name="select_id" value="4"
+           type="radio">${_arg.first.seletionE}<br>
+    %{if(_arg.first.seletionF!=null){}%
+    <input name="select_id" value="5"
+           type="radio">${_arg.first.seletionF}<br>
+    %{if(_arg.first.seletionG!=null){}%
+    <input name="select_id" value="6"
+           type="radio">${_arg.first.seletionG}<br>
+    %{if(_arg.first.seletionH!=null){}%
+    <input name="select_id" value="7"
+           type="radio">${_arg.first.seletionH}<br>
+    %{}}}}}}%
+    <input name="question_id" value="${_arg.first.id}" type="hidden">
+    <input name="paper_id" value="${_arg.first.paper.id}" type="hidden">
+
+    <input name="submit" value="Submit" type="submit"><br>
+</form>
+<script>
+    document.all("select_id")[${_arg.second}].checked = true;
+</script>

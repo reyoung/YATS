@@ -14,6 +14,43 @@ import java.util.List;
  */
 public class ModelProxy {
 
+    public static void StudentFinishPaper(String username,long paper_id){
+        //! TODO Complete The Stub
+    }
+
+    public static int GetQuestionNoOfPaper(long q_id,long p_id){
+        Paper p = Paper.findById(p_id);
+        for(int i=0;i<p.questions.size();++i){
+            if(p.questions.get(i).id==q_id)
+                return i;
+        }
+        return -1;
+    }
+    public static int GetQuestionCountOfPaper(long q_id){
+        Paper p = Paper.findById(q_id);
+        return p.questions.size();
+    }
+
+    /**
+     * 返回学生当前的问题状态。true表示已回答过，false表示未回答过。
+     * @param studentname
+     * @param paper_id
+     * @return
+     */
+    public static List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
+        List<Boolean> retv = new ArrayList<Boolean>();
+        Paper paper = Paper.findById(paper_id);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        for(Question q : qsList)
+        {
+            if(UserDoneQuestion.find("byQuestion", q).first() != null)retv.add(Boolean.TRUE);
+            else    retv.add(Boolean.FALSE);
+        }
+        return retv;
+    }
+
+
+
     /**
      * Pair
      * @param <T1>
@@ -62,9 +99,18 @@ public class ModelProxy {
      */
     static public int NewStubQuestion(long paper_id) {
         Paper paper = Paper.findById(paper_id);
-        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "Selection C", paper);
+        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "SelectionC", paper);
         qs.save();
-        return (int) (Question.count("byPaper", paper)-1);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        int ans = -1;
+        for(Question q : qsList)
+        {
+            if(q.id == qs.id)
+            {
+                ans = qsList.indexOf(q);
+            }
+        }
+        return ans;
     }
 
     /**
@@ -139,13 +185,12 @@ public class ModelProxy {
         return pap.id;
     }
 
-    /**这个返回的是未发布的还是已经发布的试卷啊？？
+    /**
      * 返回一个Teacher的所有Paper ID 和名称
      * @param username
      * @return
      */
     public static List<MenuItem> GetPaperByTeacher(String username, boolean published) {
-        //! TODO Complete the published Param
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
@@ -153,7 +198,7 @@ public class ModelProxy {
             for (Paper p : lp) {
                 if(p.isPublished)
                 {
-                    retv.add(new MenuItem(TeacherPaperId2URL(p.id), p.name));
+                    retv.add(new MenuItem(TeacherPaperId2URL_Published(p.id), p.name));
                 }
             }
         }
@@ -255,6 +300,10 @@ public class ModelProxy {
         return String.format("/teacher/draft/edit?paper_id=%d", id);
     }
 
+    private static String TeacherPaperId2URL_Published(long id){
+        return String.format("/teacher/published/stat?paper_id=%d", id);
+    }
+
     /**
      * 返回所有当前学生未完成的试卷
      * @param username
@@ -283,19 +332,31 @@ public class ModelProxy {
      * @param answer
      * @return
      */
-    public static void SaveQuestionByStudent(long userId, long questionId, int answer) {
-        UserDoneQuestion udq = new UserDoneQuestion((User) User.findById(userId),
+    public static void SaveQuestionByStudent(String username, long questionId, int answer) {
+        User user = User.find("byName", username).first();
+        Question qs = Question.findById(questionId);
+        UserDoneQuestion ud = UserDoneQuestion.find("byUserAndQuestion", user,qs).first();
+        if(ud != null)
+        {
+            ud.answer = answer;
+            ud.save();
+            return;
+        }
+        else
+        {
+            UserDoneQuestion udq = new UserDoneQuestion((User) User.find("byName", username).first(),
                 (Question) Question.findById(questionId), answer);
-        udq.save();
+            udq.save();
+        }
     }
 
     /**
      * 保存考试开始信息
-     * @param userId
+     * @param username
      * @param paperId
      */
-    public static void StartPaper(long userId, long paperId) {
-        ResultInfo ri = new ResultInfo((User) User.findById(userId),
+    public static void StartPaper(String username, long paperId) {
+        ResultInfo ri = new ResultInfo((User) User.find("byName", username).first(),
                 (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
         ri.save();
     }
@@ -314,20 +375,20 @@ public class ModelProxy {
 
     /**
      * 按照学生ID,试卷ID，试题序号返回试题，若已做过，则第三个参数返回答案
-     * @param userId
+     * @param username
      * @param paperId
      * @param questionNo
      * @param answer
      * @return
      */
-    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
-        User user = User.findById(userId);
+    public static Pair<Question, Integer> GetQuestionByStudent(String username, long paperId, int questionNo) {
+        User user = User.find("byName", username).first();
         Paper paper = Paper.findById(paperId);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
         Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
         UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
         if (udq != null) {
-            ret.second = answer;
+            ret.second = udq.answer;
         }
         return ret;
     }
@@ -339,5 +400,92 @@ public class ModelProxy {
      */
     private static String StudentPaperId2URL(long id) {
         return String.format("/student/test/edit?paper_id=%d", id);
+    }
+
+    /**
+     * 获得参加考试的人数
+     * @param paper_id
+     * @return
+     */
+    public static int   GetAttendExamStudentCount(long paper_id){
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        int ans = 0;
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())ans++;
+        }
+        return ans;
+    }
+
+    /**
+     * 获得试卷平均分
+     * @param paper_id
+     * @return
+     */
+    public static double GetAvgScoreByPaperId(long paper_id){
+        double ans = 0;
+        int count = 0;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                ans += r.result;
+                count++;
+            }
+        }
+        if(count != 0)return ans/count;
+        else return 0;
+    }
+    /**
+     * 获得学生分数分布情况
+     * @param paper_id
+     * @param demension 分布区间
+     * @return 返回一个demension长度的int数组。
+     * @note 例如，100分的试卷，demension是2，则求前50分人数，和后50分人数，返回数组。
+     *                          demonsion是4，则每25分返回人数。
+     */
+    public static List<Integer> GetDistributePeopleNumberByPaperId(long paper_id,int demension){
+        List<Integer> ans = new ArrayList<Integer>();
+        if(demension <= 0)return ans;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(int i = 0 ; i < demension ; ++i)ans.add(0);
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                int index = (int)(r.result / (100/demension));
+                if(index == ans.size())index--;
+                int origin = ans.get(index);
+                ans.set(index, origin + 1);
+            }
+        }
+        return ans;
+    }
+    /**
+     * 返回试卷的正确率
+     * @param paper_id
+     * @return  数组，数组序号表示题号，Pair的第1项表示正确人数，Pair第二项表示错误人数
+     * @note 例如 { <2,3>，<3,2>,<1,4> },表示第一道题2个人对，3个人错，第二题3个人对，两个人错。
+     */
+    public static List<Pair<Integer,Integer> >  GetCorrectRateByPaperId(long paper_id){
+        List<Pair<Integer,Integer> > ans = new ArrayList<Pair<Integer, Integer>>();
+        Paper paper = Paper.findById(paper_id);
+        List<Question>  qsList = Question.find("byPaper", paper).fetch();
+        for(Question q : qsList)
+        {
+            List<UserDoneQuestion> udqList = UserDoneQuestion.find("byQuestion", q).fetch();
+            int tNum = 0,fNum = 0;
+            for(UserDoneQuestion udq : udqList)
+            {
+                if(udq.answer == q.answer)tNum++;
+                else    fNum++;
+            }
+            ans.add(new Pair<Integer,Integer>(tNum,fNum));
+        }
+        return ans;
     }
 }
