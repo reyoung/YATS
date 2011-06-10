@@ -6,8 +6,10 @@ package controllers;
 import models.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.RequestWrapper;
 import models.ModelProxy;
 import models.User;
+import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -44,19 +46,24 @@ public class Student extends Controller {
 
     public static void exam_list() {
         addAction_exam_0();
-        List<models.Paper> plist= ModelProxy.GetAvailablePaperByStudentName(Security.connected());
-        List<MenuItem>     paperlist = _getPaperListUrl("/student/exam/attend?paper_id=", plist);
+        List<models.Paper> plist = ModelProxy.GetAvailablePaperByStudentName(Security.connected());
+        List<MenuItem> paperlist = _getPaperListUrl("/student/exam/attend?paper_id=", plist);
         render(paperlist);
     }
 
-    private static List<MenuItem> _getPaperListUrl(String prefix,List<Paper> plist){
-        List<MenuItem>  retv = new ArrayList<MenuItem>();
-        for(Paper p : plist){
-            retv.add(new MenuItem(prefix+String.valueOf(p.id), p.name));
+    public static void exam_attend(@Required long paper_id){
+        addAction_exam_0();
+        render();
+    }
+
+    private static List<MenuItem> _getPaperListUrl(String prefix, List<Paper> plist) {
+        List<MenuItem> retv = new ArrayList<MenuItem>();
+        for (Paper p : plist) {
+            retv.add(new MenuItem(prefix + String.valueOf(p.id), p.name));
         }
         return retv;
     }
-    
+
     private static void addAction_exam_0() {
         List<MenuItem> acts = new ArrayList<MenuItem>();
         models.Paper unfinish = ModelProxy.GetUnfinishedPaperByStudentName(Security.connected());
