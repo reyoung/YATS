@@ -1,3 +1,17 @@
+html, body {
+    background: #ccccff !important;
+    font-family: Helvetica, Arial, Sans !important;
+
+}
+
+body {
+    width: 900px;
+    padding: 0 30px;
+    margin: auto;
+}
+
+
+
 #header {
 	padding: 10px 60px;
 	background: #555;
@@ -16,7 +30,7 @@
 #header #menu {
 	position: absolute;
 	bottom: 0;
-	right: 60px;
+	right: 30px;
 	list-style: none;
 }
 
@@ -35,6 +49,9 @@
 	background: #444;
 }
 table.mm {
-    margin-top: 0px;
     color:black ;
+    text-align: left;
+    width: 70%;
+
+    vertical-align: top;
 }
