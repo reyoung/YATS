@@ -6,7 +6,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import models.ModelProxy;
-import models.Paper;
 import models.Question;
 import models.User;
 import play.data.validation.Required;
@@ -180,8 +179,16 @@ public class Teacher extends Controller {
         List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(), true);
         render(paperlist);
     }
-    public static void stat(@Required long paper_id){
-        if(Validation.hasErrors()){
+
+    public static void stat(@Required long paper_id) {
+        if (Validation.hasErrors()) {
+            index();
+        }
+        stat_distribute(paper_id);
+    }
+
+    public static void stat_distribute(@Required long paper_id) {
+        if (Validation.hasErrors()) {
             index();
         }
         add_publish_actions(paper_id);
@@ -190,8 +197,8 @@ public class Teacher extends Controller {
 
     private static void add_publish_actions(long paper_id) {
         List<MenuItem> actions = new ArrayList<MenuItem>();
-        actions.add(new MenuItem(String.format("/teacher/stat/distribute?paper_id=%d",paper_id), "Distribute"));
-        actions.add(new MenuItem(String.format("/teacher/stat/correct_rate?paper_id=%d", paper_id),"Correct Rate"));
+        actions.add(new MenuItem(String.format("/teacher/stat/distribute?paper_id=%d", paper_id), "Distribute"));
+        actions.add(new MenuItem(String.format("/teacher/stat/correct_rate?paper_id=%d", paper_id), "Correct Rate"));
         renderArgs.put("actioncontext", actions);
     }
 }

@@ -51,25 +51,30 @@ public class Student extends Controller {
         render(paperlist);
     }
 
-    public static void exam_attend(@Required long paper_id){
+    public static void exam_attend(@Required long paper_id) {
         addAction_exam_0();
         render(paper_id);
     }
 
-    public static void exam_start(@Required long paper_id){
+    public static void exam_start(@Required long paper_id) {
         ModelProxy.StartPaper(Security.connected(), paper_id);
-        
         exam_take(paper_id, 0);
     }
 
-    public static void exam_take(@Required long paper_id,@Required int question_no){
-        List<Boolean> list = ModelProxy.GetQuestionsStatusByStudentName(Security.connected(),paper_id);
-        boolean [] StatusList = new boolean [list.size()];
-        for(int i=0;i<list.size();++i){
+    public static void exam_take(@Required long paper_id, @Required int question_no) {
+        _renderQuestionStatue(paper_id);
+        render();
+    }
+
+    private static void _renderQuestionStatue(long paper_id) {
+        List<Boolean> list = ModelProxy.GetQuestionsStatusByStudentName(Security.connected(), paper_id);
+        boolean[] StatusList = new boolean[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
             StatusList[i] = list.get(i).booleanValue();
         }
         String EditPrefix = String.format("/student/exam/take?paper_id=%d&question_no=", paper_id);
-        render(StatusList,EditPrefix);
+        renderArgs.put("StatusList", StatusList);
+        renderArgs.put("EditPrefix", EditPrefix);
     }
 
     private static List<MenuItem> _getPaperListUrl(String prefix, List<Paper> plist) {
