@@ -345,22 +345,24 @@ public class ModelProxy {
 
     /**
      * 按照学生ID,试卷ID，试题序号返回试题，若已做过，则第三个参数返回答案
-     * @param userId
+     * @param username
      * @param paperId
      * @param questionNo
      * @param answer
      * @return
      */
-    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo) {
-        User user = User.findById(userId);
-        Paper paper = Paper.findById(paperId);
-        List<Question> qsList = Question.find("byPaper", paper).fetch();
-        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
-        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
-        if (udq != null) {
-            ret.second = udq.answer;
-        }
-        return ret;
+    public static Pair<Question, Integer> GetQuestionByStudent(String username, long paperId, int questionNo) {
+        /// TODO Convert Parm to username;
+//        User user = User.findById(userId);
+//        Paper paper = Paper.findById(paperId);
+//        List<Question> qsList = Question.find("byPaper", paper).fetch();
+//        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
+//        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
+//        if (udq != null) {
+//            ret.second = udq.answer;
+//        }
+//        return ret;
+        return null;
     }
 
     /**
