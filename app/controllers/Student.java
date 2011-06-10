@@ -53,7 +53,7 @@ public class Student extends Controller {
 
     public static void exam_attend(@Required long paper_id){
         addAction_exam_0();
-        render();
+        render(paper_id);
     }
 
     private static List<MenuItem> _getPaperListUrl(String prefix, List<Paper> plist) {
