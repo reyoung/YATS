@@ -3,7 +3,6 @@
  */
 package controllers;
 
-import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import models.ModelProxy;
@@ -36,7 +35,7 @@ public class Teacher extends Controller {
         renderArgs.put("headeritem", headeritem);
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
-
+//!--------------------------------------------------DRAFT--------------------
     /**
      * 草稿页面
      */
@@ -174,4 +173,8 @@ public class Teacher extends Controller {
         actions.add(new MenuItem("/teacher/draft", "Return"));
         renderArgs.put("actioncontext", actions);
     }
+
+
+ //!-------------------------------PUBLISH-----------------------------
+    
 }
