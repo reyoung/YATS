@@ -148,13 +148,12 @@ public class ModelProxy {
         return pap.id;
     }
 
-    /**这个返回的是未发布的还是已经发布的试卷啊？？
+    /**
      * 返回一个Teacher的所有Paper ID 和名称
      * @param username
      * @return
      */
     public static List<MenuItem> GetPaperByTeacher(String username, boolean published) {
-        //! TODO Complete the published Param
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
