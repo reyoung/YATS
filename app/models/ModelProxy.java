@@ -21,11 +21,14 @@ public class ModelProxy {
      * @return
      */
     public static List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
-        //! TODO Complete the Stub
         List<Boolean> retv = new ArrayList<Boolean>();
-        retv.add(Boolean.TRUE);
-        retv.add(Boolean.FALSE);
-        retv.add(Boolean.TRUE);
+        Paper paper = Paper.findById(paper_id);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        for(Question q : qsList)
+        {
+            if(UserDoneQuestion.find("byQuestion", q).first() != null)retv.add(Boolean.TRUE);
+            else    retv.add(Boolean.FALSE);
+        }
         return retv;
     }
 
@@ -312,8 +315,8 @@ public class ModelProxy {
      * @param answer
      * @return
      */
-    public static void SaveQuestionByStudent(long userId, long questionId, int answer) {
-        UserDoneQuestion udq = new UserDoneQuestion((User) User.findById(userId),
+    public static void SaveQuestionByStudent(String username, long questionId, int answer) {
+        UserDoneQuestion udq = new UserDoneQuestion((User) User.find("byName",username).first(),
                 (Question) Question.findById(questionId), answer);
         udq.save();
     }
@@ -324,11 +327,9 @@ public class ModelProxy {
      * @param paperId
      */
     public static void StartPaper(String username, long paperId) {
-        /// TODO Complete Username Convert to user id;
-//        long userId=0;
-//        ResultInfo ri = new ResultInfo((User) User.findById(userId),
-//                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
-//        ri.save();
+        ResultInfo ri = new ResultInfo((User) User.find("byName", username).first(),
+                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
+        ri.save();
     }
 
     /**
@@ -352,17 +353,15 @@ public class ModelProxy {
      * @return
      */
     public static Pair<Question, Integer> GetQuestionByStudent(String username, long paperId, int questionNo) {
-        /// TODO Convert Parm to username;
-//        User user = User.findById(userId);
-//        Paper paper = Paper.findById(paperId);
-//        List<Question> qsList = Question.find("byPaper", paper).fetch();
-//        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
-//        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
-//        if (udq != null) {
-//            ret.second = udq.answer;
-//        }
-//        return ret;
-        return null;
+        User user = User.find("byName", username).first();
+        Paper paper = Paper.findById(paperId);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
+        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
+        if (udq != null) {
+            ret.second = udq.answer;
+        }
+        return ret;
     }
 
     /**

@@ -21,7 +21,7 @@ public class ModelProxyTest2 extends UnitTest{
     {
         int ans = -1;
         ans = ModelProxy.GetAttendExamStudentCount(2);
-        System.out.println(ans);
+//        System.out.println(ans);
         assertNotSame(ans, -1);
     }
     @Test
@@ -29,7 +29,7 @@ public class ModelProxyTest2 extends UnitTest{
     {
         double ans = -1;
         ans = ModelProxy.GetAvgScoreByPaperId(2);
-        System.out.println(ans);
+//        System.out.println(ans);
         assertNotSame(ans, -1);
     }
     @Test
@@ -39,7 +39,7 @@ public class ModelProxyTest2 extends UnitTest{
         assertNotNull(ans);
         for(Integer i : ans)
         {
-            System.out.println(i);
+//            System.out.println(i);
         }
     }
     @Test
@@ -49,7 +49,22 @@ public class ModelProxyTest2 extends UnitTest{
         assertNotNull(ans);
         for(Pair<Integer,Integer> p : ans)
         {
-            System.out.print(p.first);System.out.print("+");System.out.print(p.second);
+//            System.out.print(p.first);System.out.print("+");System.out.print(p.second);
         }
+    }
+    @Test
+    public void GetQuestionsStatusByStudentNameTest()
+    {
+        List<Boolean> ans = ModelProxy.GetQuestionsStatusByStudentName("kuziki", 2);
+        assertNotNull(ans);
+        for(Boolean b : ans)
+        {
+            System.out.println(b);
+        }
+    }
+    @Test
+    public void StartPaperTest()
+    {
+        //ModelProxy.StartPaper("reyoung", 2);
     }
 }

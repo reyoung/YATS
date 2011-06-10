@@ -36,11 +36,6 @@ public class ModelProxyTest extends UnitTest{
         //ModelProxy.SaveQuestionByStudent(1, 1, 2);
     }
     @Test
-    public void ModelProxyStartPaperTest()
-    {
-        ModelProxy.StartPaper(1, 1);
-    }
-    @Test
     public void ModelProxyGetScoreTest()
     {
         double score = ModelProxy.GetScore(1, 1);
