@@ -63,7 +63,7 @@ public class ModelProxyTest extends UnitTest{
         ls.add("just so so ");
         ls.add("hate");
         ls.add("Unknown");
-        ans = ModelProxy.UpdateQuestionByTeacher(1,"Do you love Sola" , 2, ls);
+        ans = ModelProxy.UpdateQuestionByTeacher(2,"Do you love Sola" , 2, ls);
     }
     @Test
     public void ModelProxyDeleteQuestionTest()
@@ -77,7 +77,6 @@ public class ModelProxyTest extends UnitTest{
     {
         int ans = -1;
         ans = ModelProxy.NewStubQuestion(2);
-        System.out.print(ans);
         assertNotSame(ans, -1);
     }
 }
