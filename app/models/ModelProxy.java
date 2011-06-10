@@ -471,4 +471,24 @@ public class ModelProxy {
         }
         return ans;
     }
+    /**
+     * 返回考试详细信息（每道题的学生做的答案和正确答案）
+     * @param username
+     * @param paper_id
+     * @return
+     */
+    public static List<Pair<Integer,Integer> > GetTestDetail(String username, long paper_id)
+    {
+        User user = User.find("byName", username).first();
+        Paper paper = Paper.findById(paper_id);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        List<Pair<Integer,Integer> > ret = new ArrayList<Pair<Integer, Integer>>();
+        for(Question q : qsList)
+        {
+            UserDoneQuestion r = UserDoneQuestion.find("byUserAndQuestion", user,q).first();
+            if(r != null)ret.add(new Pair<Integer,Integer>(r.answer,q.answer));
+            else ret.add(new Pair<Integer,Integer>(-1,q.answer));
+        }
+        return ret;
+    }
 }
