@@ -180,11 +180,20 @@ public class Teacher extends Controller {
     public static void published() {
         List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(), true);
         render(paperlist);
-        
+    }
+    public static void stat(@Required long paper_id){
+        if(Validation.hasErrors()){
+            index();
+        }
+        add_publish_actions(paper_id);
+        System.out.printf("Paper ID = %d\n", paper_id);
+        render();
     }
 
-//    private static void add_publish_actions() {
-//        List<MenuItem> actions = new ArrayList<MenuItem>();
-//        renderArgs.put("actioncontext", actions);
-//    }
+    private static void add_publish_actions(long paper_id) {
+        List<MenuItem> actions = new ArrayList<MenuItem>();
+        actions.add(new MenuItem(String.format("/teacher/stat/distribute?paper_id=%d",paper_id), "Distribute"));
+        actions.add(new MenuItem(String.format("/teacher/stat/correct_rate?paper_id=%d", paper_id),"Correct Rate"));
+        renderArgs.put("actioncontext", actions);
+    }
 }
