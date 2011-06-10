@@ -96,13 +96,14 @@ public class ModelProxy {
         return tPaper;
     }
 
-    static public List<Paper> GetUnfinishedPaperByStudentName(String name) {
+    static public Paper GetUnfinishedPaperByStudentName(String name) {
         User student = User.find("byName", name).first();
         List<ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
-        List<Paper> paper = new ArrayList<Paper>();
+        Paper paper = null;
         for (ResultInfo r : rinfo) {
             if (r.hasComplete() == false) {
-                paper.add(r.paper);
+                paper = r.paper;
+                break;
             }
         }
         return paper;
