@@ -1,10 +1,14 @@
 %{if(_arg!=null){}%
-<div id="ActionMenu">
-    <ul id="Context">
+<table id="table_Action" >
+   <tbody>
+    <tr>
+      <td class="td">
         %{for(item in _arg){}%
-        <li><a href="${item.url}">${item.name}</a></li>
+        <li><a href="${item.url}">${item.name}</a></li><br />
         %{}}%
-    </ul>
-</div>
+		</td>
+		</tr>
+</table>
+		
 %{}else{}%
 %{}}%
