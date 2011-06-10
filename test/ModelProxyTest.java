@@ -33,7 +33,7 @@ public class ModelProxyTest extends UnitTest{
     @Test
     public void ModelProxySaveQuestionByStudentTest()
     {
-        ModelProxy.SaveQuestionByStudent(1, 1, 2);
+        //ModelProxy.SaveQuestionByStudent(1, 1, 2);
     }
     @Test
     public void ModelProxyStartPaperTest()
@@ -64,5 +64,20 @@ public class ModelProxyTest extends UnitTest{
         ls.add("hate");
         ls.add("Unknown");
         ans = ModelProxy.UpdateQuestionByTeacher(1,"Do you love Sola" , 2, ls);
+    }
+    @Test
+    public void ModelProxyDeleteQuestionTest()
+    {
+        boolean ans = false;
+        ans = ModelProxy.DeleteQuestion(1);
+        assertNotSame(ans, false);
+    }
+    @Test
+    public void ModelProxyNewStubQuestionTest()
+    {
+        int ans = -1;
+        ans = ModelProxy.NewStubQuestion(2);
+        System.out.print(ans);
+        assertNotSame(ans, -1);
     }
 }
