@@ -1,57 +1,115 @@
-html, body {
-    background: #ccccff !important;
-    font-family: Helvetica, Arial, Sans !important;
 
-}
-
-body {
-    width: 900px;
-    padding: 0 30px;
-    margin: auto;
-}
-
-
+body 
+{
+background-color:#718347;
+width:1280px;
+} 
 
 #header {
-	padding: 10px 60px;
-	background: #555;
-	margin-bottom: 10px;
-        /* color: #99CC66;*/
-	position: relative;
-}
-#header p {
-	margin: 5px 0;
+	margin-top:10px;
+	width:1024px;
+	height:145px;
+	background: #CED794;
+
+	margin-left:110px;
+	/*
+        color: #99CC66;*/
+	/*position: relative;*/
 }
 
-#header a {
-	color: gold;
+#header img{
+    margin-top:0;
+    width: 1024px; 
+	height: 110px;
 }
 
 #header #menu {
-	position: absolute;
-	bottom: 0;
-	right: 30px;
+	/*position: absolute;*/
+	margin-top:-4px;
+	margin-right:0px;
 	list-style: none;
+	background: #FFFFCD;
+	height:35px;
 }
 
 #header #menu li {
-	float: left;
+    font-size:24px;
+	float: right;	
+	line-height:30px;
+	background: #718347;
+	margin-right:10px;
 }
 
 #header #menu li a {
+    color: #FFFFCD;/*连接字体颜色 浅黄*/
 	display: block;
-	background: #222;
-	padding: 10px 20px;
-	margin-left: 3px;
+	font-family:"Times New Roman";
+	margin-left: 20px;
+	margin-right:20px;
+	margin-top:5px;
 }
 
-#header #menu li a.selected {
-	background: #444;
+#Panel{
+    width:1024px;
+    height:655px;
+	margin-left:110px;
+    background:url(../images/bgleft.jpg);
+	margin-top:0px;
 }
-table.mm {
-    color:black ;
-    text-align: left;
-    width: 70%;
+#Panel #left{
+    margin-left:45px;
+	margin-top:40px;
+	float:left;
 
-    vertical-align: top;
+}
+#Panel #ActionMenu{
+
+
+}
+
+#Panel #MainContext{
+    background-color:#FFFFCD;
+    float:right;
+	margin-right:45px;
+	margin-top:40px;
+	width:660px;
+	height:540px;
+}
+#Papers{}
+#Papers #PaperList{}
+
+#Papers #PaperList li a{
+    color:#718347;
+	font-size:18px;
+    
+}
+#table_userInfo{
+    width:230px;
+	height:280px;
+	text-align:center;
+	background:#CED794; 
+	color:#718347;
+	font-size:20px;
+	border:1px double #FFFFCD;
+	list-style: none;
+}
+.td{
+    border:1px double #718347;
+}
+#table_userInfo li a {
+    color:#5A6344;
+	
+}
+#table_Action{
+    margin-top:60px;
+    width:230px;
+	height:200px;
+	text-align:center;
+	background:#CED794; 
+	font-size:20px;
+	border:1px double #FFFFCD;
+	list-style: none;
+}
+#table_Action li a {
+    color:#5A6344;	
 }
