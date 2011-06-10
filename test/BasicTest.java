@@ -8,8 +8,8 @@ import models.*;
 public class BasicTest extends UnitTest {
     @Before
     public void setup(){
-        //Fixtures.deleteAll();
-        //Fixtures.loadModels("data.yml");
+//        Fixtures.deleteAll();
+//        Fixtures.loadModels("data.yml");
     }
 
     @Test
@@ -89,8 +89,8 @@ public class BasicTest extends UnitTest {
     @Test
     public void ModelProxyGetPaperByTeacherTest()
     {
-        List<MenuItem> retv = ModelProxy.GetPaperByTeacher("reyoung");
-        assertNotNull(retv);
+        //List<MenuItem> retv = ModelProxy.GetPaperByTeacher("reyoung");
+        //assertNotNull(retv);
     }
     @Test
     public void ModelProxyPublishPaperByIDTest()
@@ -103,5 +103,12 @@ public class BasicTest extends UnitTest {
     {
         boolean ans = ModelProxy.RemovePaperByID("reyoung", 2);
         assertNotSame(ans, false);
+    }
+    @Test
+    public void ModelProxyNewStubQuestionTest()
+    {
+        int ans = -1;
+        ans = ModelProxy.NewStubQuestion(1);
+        assertNotSame(ans, -1);
     }
 }

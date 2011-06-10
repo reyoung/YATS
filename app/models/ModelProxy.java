@@ -62,9 +62,18 @@ public class ModelProxy {
      */
     static public int NewStubQuestion(long paper_id) {
         Paper paper = Paper.findById(paper_id);
-        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "Selection C", paper);
+        Question qs = new Question("This is a Stub Question", 1, "Seletion A", "Selection B", "SelectionC", paper);
         qs.save();
-        return (int) (Question.count("byPaper", paper)-1);
+        List<Question> qsList = Question.find("byPaper", paper).fetch();
+        int ans = -1;
+        for(Question q : qsList)
+        {
+            if(q.id == qs.id)
+            {
+                ans = qsList.indexOf(q);
+            }
+        }
+        return ans;
     }
 
     /**
