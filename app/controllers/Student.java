@@ -35,9 +35,12 @@ public class Student extends Controller {
     }
 
     public static void index() {
+        exam();
+    }
+    public static void exam(){
+        addAction_exam_0();
         render();
     }
-
     private static void addAction_exam_0(){
         List<MenuItem> acts = new ArrayList<MenuItem>();
         models.Paper unfinish = ModelProxy.GetUnfinishedPaperByStudentName(Security.connected());
@@ -45,5 +48,6 @@ public class Student extends Controller {
             acts.add(new MenuItem(String.format("/student/exam/do?paper_id=%d",unfinish.id),"Unfinished Test"));
         }
         acts.add(new MenuItem("/student/exam/list", "All Available Exam"));
+        renderArgs.put("actioncontext", acts);
     }
 }
