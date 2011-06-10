@@ -351,14 +351,14 @@ public class ModelProxy {
      * @param answer
      * @return
      */
-    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
+    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo) {
         User user = User.findById(userId);
         Paper paper = Paper.findById(paperId);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
         Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
         UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
         if (udq != null) {
-            ret.second = answer;
+            ret.second = udq.answer;
         }
         return ret;
     }
@@ -378,8 +378,14 @@ public class ModelProxy {
      * @return
      */
     public static int   GetAttendExamStudentCount(long paper_id){
-        //! TODO Complete The Stub
-        return 0;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        int ans = 0;
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())ans++;
+        }
+        return ans;
     }
 
     /**
@@ -388,8 +394,20 @@ public class ModelProxy {
      * @return
      */
     public static double GetAvgScoreByPaperId(long paper_id){
-        //! TODO Complete The Stub
-        return 4.4;
+        double ans = 0;
+        int count = 0;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                ans += r.result;
+                count++;
+            }
+        }
+        if(count != 0)return ans/count;
+        else return 0;
     }
     /**
      * 获得学生分数分布情况
@@ -399,9 +417,23 @@ public class ModelProxy {
      * @note 例如，100分的试卷，demension是2，则求前50分人数，和后50分人数，返回数组。
      *                          demonsion是4，则每25分返回人数。
      */
-    public static int[] GetDistributePeopleNumberByPaperId(long paper_id,int demension){
-        //! TODO Complete The Stub
-        return null;
+    public static List<Integer> GetDistributePeopleNumberByPaperId(long paper_id,int demension){
+        List<Integer> ans = new ArrayList<Integer>();
+        if(demension <= 0)return ans;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(int i = 0 ; i < demension ; ++i)ans.add(0);
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                int index = (int)(r.result / (100/demension));
+                if(index == ans.size())index--;
+                int origin = ans.get(index);
+                ans.set(index, origin + 1);
+            }
+        }
+        return ans;
     }
     /**
      * 返回试卷的正确率
@@ -410,7 +442,20 @@ public class ModelProxy {
      * @note 例如 { <2,3>，<3,2>,<1,4> },表示第一道题2个人对，3个人错，第二题3个人对，两个人错。
      */
     public static List<Pair<Integer,Integer> >  GetCorrectRateByPaperId(long paper_id){
-        //! TODO Complete The Stub
-        return null;
+        List<Pair<Integer,Integer> > ans = new ArrayList<Pair<Integer, Integer>>();
+        Paper paper = Paper.findById(paper_id);
+        List<Question>  qsList = Question.find("byPaper", paper).fetch();
+        for(Question q : qsList)
+        {
+            List<UserDoneQuestion> udqList = UserDoneQuestion.find("byQuestion", q).fetch();
+            int tNum = 0,fNum = 0;
+            for(UserDoneQuestion udq : udqList)
+            {
+                if(udq.answer == q.answer)tNum++;
+                else    fNum++;
+            }
+            ans.add(new Pair<Integer,Integer>(tNum,fNum));
+        }
+        return ans;
     }
 }
