@@ -19,7 +19,7 @@ GET     /                                       Application.index
 *       /student/exam/attend                    Student.exam_attend
 *       /student/exam/start                     Student.exam_start
 *       /student/exam/take                      Student.exam_take
-
+*       /student/exam/finish                    Student.exam_finish
 
 #Teacher Pages
 *       /teacher/?                              Teacher.index

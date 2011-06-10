@@ -14,6 +14,23 @@ import java.util.List;
  */
 public class ModelProxy {
 
+    public static void StudentFinishPaper(String username,long paper_id){
+        //! TODO Complete The Stub
+    }
+
+    public static int GetQuestionNoOfPaper(long q_id,long p_id){
+        Paper p = Paper.findById(p_id);
+        for(int i=0;i<p.questions.size();++i){
+            if(p.questions.get(i).id==q_id)
+                return i;
+        }
+        return -1;
+    }
+    public static int GetQuestionCountOfPaper(long q_id){
+        Paper p = Paper.findById(q_id);
+        return p.questions.size();
+    }
+
     /**
      * 返回学生当前的问题状态。true表示已回答过，false表示未回答过。
      * @param studentname
