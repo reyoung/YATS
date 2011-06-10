@@ -1,10 +1,20 @@
 #{extends 'main.html' /}
 #{set title:'Teacher Home' /}
 #{Header items:headeritem, img:headerimg/}
-#{Left}
-#{UserInfoWnd user/}
-#{Action actioncontext/}
-#{/Left}
-<div id="MainContext">
-#{doLayout /}
-</div>
+
+<table class="mm">
+    <tr>
+        <td valign="top">
+            #{Left}
+            #{UserInfoWnd user/}
+            #{Action actioncontext/}
+            #{/Left}
+
+        </td>
+        <td width=900px valign="top" >
+            <div id="MainContext">
+                #{doLayout /}
+            </div>
+        </td>
+    </tr>
+</table>

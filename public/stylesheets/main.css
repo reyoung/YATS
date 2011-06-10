@@ -1,5 +1,5 @@
 html, body {
-    background: #98f7ed !important;
+    background: #ccccff !important;
     font-family: Helvetica, Arial, Sans !important;
 
 }
@@ -52,4 +52,6 @@ table.mm {
     color:black ;
     text-align: left;
     width: 70%;
+
+    vertical-align: top;
 }
