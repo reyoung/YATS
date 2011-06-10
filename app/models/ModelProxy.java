@@ -15,6 +15,23 @@ import java.util.List;
 public class ModelProxy {
 
     /**
+     * 返回学生当前的问题状态。true表示已回答过，false表示未回答过。
+     * @param studentname
+     * @param paper_id
+     * @return
+     */
+    public static List<Boolean>   GetQuestionsStatusByStudentName(String studentname,long paper_id){
+        //! TODO Complete the Stub
+        List<Boolean> retv = new ArrayList<Boolean>();
+        retv.add(Boolean.TRUE);
+        retv.add(Boolean.FALSE);
+        retv.add(Boolean.TRUE);
+        return retv;
+    }
+
+
+
+    /**
      * Pair
      * @param <T1>
      * @param <T2>
@@ -148,13 +165,12 @@ public class ModelProxy {
         return pap.id;
     }
 
-    /**这个返回的是未发布的还是已经发布的试卷啊？？
+    /**
      * 返回一个Teacher的所有Paper ID 和名称
      * @param username
      * @return
      */
     public static List<MenuItem> GetPaperByTeacher(String username, boolean published) {
-        //! TODO Complete the published Param
         List<MenuItem> retv = new ArrayList<MenuItem>();
         User paperAuthor = User.find("byName", username).first();
         List<Paper> lp = Paper.find("byAuthor", paperAuthor).fetch();
@@ -304,13 +320,15 @@ public class ModelProxy {
 
     /**
      * 保存考试开始信息
-     * @param userId
+     * @param username
      * @param paperId
      */
-    public static void StartPaper(long userId, long paperId) {
-        ResultInfo ri = new ResultInfo((User) User.findById(userId),
-                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
-        ri.save();
+    public static void StartPaper(String username, long paperId) {
+        /// TODO Complete Username Convert to user id;
+//        long userId=0;
+//        ResultInfo ri = new ResultInfo((User) User.findById(userId),
+//                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
+//        ri.save();
     }
 
     /**
@@ -327,22 +345,24 @@ public class ModelProxy {
 
     /**
      * 按照学生ID,试卷ID，试题序号返回试题，若已做过，则第三个参数返回答案
-     * @param userId
+     * @param username
      * @param paperId
      * @param questionNo
      * @param answer
      * @return
      */
-    public static Pair<Question, Integer> GetQuestionByStudent(long userId, long paperId, int questionNo, int answer) {
-        User user = User.findById(userId);
-        Paper paper = Paper.findById(paperId);
-        List<Question> qsList = Question.find("byPaper", paper).fetch();
-        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
-        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
-        if (udq != null) {
-            ret.second = answer;
-        }
-        return ret;
+    public static Pair<Question, Integer> GetQuestionByStudent(String username, long paperId, int questionNo) {
+        /// TODO Convert Parm to username;
+//        User user = User.findById(userId);
+//        Paper paper = Paper.findById(paperId);
+//        List<Question> qsList = Question.find("byPaper", paper).fetch();
+//        Pair ret = new Pair<Question, Integer>(qsList.get(questionNo), new Integer(-1));
+//        UserDoneQuestion udq = UserDoneQuestion.find("byUserAndQuestion", user, qsList.get(questionNo)).first();
+//        if (udq != null) {
+//            ret.second = udq.answer;
+//        }
+//        return ret;
+        return null;
     }
 
     /**
@@ -360,8 +380,14 @@ public class ModelProxy {
      * @return
      */
     public static int   GetAttendExamStudentCount(long paper_id){
-        //! TODO Complete The Stub
-        return 0;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        int ans = 0;
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())ans++;
+        }
+        return ans;
     }
 
     /**
@@ -370,8 +396,20 @@ public class ModelProxy {
      * @return
      */
     public static double GetAvgScoreByPaperId(long paper_id){
-        //! TODO Complete The Stub
-        return 4.4;
+        double ans = 0;
+        int count = 0;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                ans += r.result;
+                count++;
+            }
+        }
+        if(count != 0)return ans/count;
+        else return 0;
     }
     /**
      * 获得学生分数分布情况
@@ -381,9 +419,23 @@ public class ModelProxy {
      * @note 例如，100分的试卷，demension是2，则求前50分人数，和后50分人数，返回数组。
      *                          demonsion是4，则每25分返回人数。
      */
-    public static int[] GetDistributePeopleNumberByPaperId(long paper_id,int demension){
-        //! TODO Complete The Stub
-        return null;
+    public static List<Integer> GetDistributePeopleNumberByPaperId(long paper_id,int demension){
+        List<Integer> ans = new ArrayList<Integer>();
+        if(demension <= 0)return ans;
+        Paper paper = Paper.findById(paper_id);
+        List <ResultInfo> rsList = ResultInfo.find("byPaper", paper).fetch();
+        for(int i = 0 ; i < demension ; ++i)ans.add(0);
+        for(ResultInfo r : rsList)
+        {
+            if(r.hasComplete())
+            {
+                int index = (int)(r.result / (100/demension));
+                if(index == ans.size())index--;
+                int origin = ans.get(index);
+                ans.set(index, origin + 1);
+            }
+        }
+        return ans;
     }
     /**
      * 返回试卷的正确率
@@ -392,7 +444,20 @@ public class ModelProxy {
      * @note 例如 { <2,3>，<3,2>,<1,4> },表示第一道题2个人对，3个人错，第二题3个人对，两个人错。
      */
     public static List<Pair<Integer,Integer> >  GetCorrectRateByPaperId(long paper_id){
-        //! TODO Complete The Stub
-        return null;
+        List<Pair<Integer,Integer> > ans = new ArrayList<Pair<Integer, Integer>>();
+        Paper paper = Paper.findById(paper_id);
+        List<Question>  qsList = Question.find("byPaper", paper).fetch();
+        for(Question q : qsList)
+        {
+            List<UserDoneQuestion> udqList = UserDoneQuestion.find("byQuestion", q).fetch();
+            int tNum = 0,fNum = 0;
+            for(UserDoneQuestion udq : udqList)
+            {
+                if(udq.answer == q.answer)tNum++;
+                else    fNum++;
+            }
+            ans.add(new Pair<Integer,Integer>(tNum,fNum));
+        }
+        return ans;
     }
 }
