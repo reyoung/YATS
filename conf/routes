@@ -17,6 +17,9 @@ GET     /                                       Application.index
 *       /student/exam                           Student.exam
 *       /student/exam/list                      Student.exam_list
 *       /student/exam/attend                    Student.exam_attend
+*       /student/exam/start                     Student.exam_start
+*       /student/exam/take                      Student.exam_take
+
 
 #Teacher Pages
 *       /teacher/?                              Teacher.index

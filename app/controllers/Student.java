@@ -56,6 +56,15 @@ public class Student extends Controller {
         render(paper_id);
     }
 
+    public static void exam_start(@Required long paper_id){
+        ModelProxy.StartPaper(Security.connected(), paper_id);
+        exam_take(paper_id, 0);
+    }
+
+    public static void exam_take(@Required long paper_id,@Required int question_no){
+        render();
+    }
+
     private static List<MenuItem> _getPaperListUrl(String prefix, List<Paper> plist) {
         List<MenuItem> retv = new ArrayList<MenuItem>();
         for (Paper p : plist) {

@@ -303,13 +303,15 @@ public class ModelProxy {
 
     /**
      * 保存考试开始信息
-     * @param userId
+     * @param username
      * @param paperId
      */
-    public static void StartPaper(long userId, long paperId) {
-        ResultInfo ri = new ResultInfo((User) User.findById(userId),
-                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
-        ri.save();
+    public static void StartPaper(String username, long paperId) {
+        /// TODO Complete Username Convert to user id;
+//        long userId=0;
+//        ResultInfo ri = new ResultInfo((User) User.findById(userId),
+//                (Paper) Paper.findById(paperId), new Date(System.currentTimeMillis()));
+//        ri.save();
     }
 
     /**
