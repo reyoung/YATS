@@ -153,7 +153,7 @@ public class ModelProxy {
             for (Paper p : lp) {
                 if(p.isPublished)
                 {
-                    retv.add(new MenuItem(TeacherPaperId2URL(p.id), p.name));
+                    retv.add(new MenuItem(TeacherPaperId2URL_Published(p.id), p.name));
                 }
             }
         }
@@ -253,6 +253,10 @@ public class ModelProxy {
      */
     private static String TeacherPaperId2URL(long id) {
         return String.format("/teacher/draft/edit?paper_id=%d", id);
+    }
+
+    private static String TeacherPaperId2URL_Published(long id){
+        return String.format("/teacher/published/stat?paper_id=%d", id);
     }
 
     /**

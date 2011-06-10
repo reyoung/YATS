@@ -6,6 +6,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import models.ModelProxy;
+import models.Paper;
 import models.Question;
 import models.User;
 import play.data.validation.Required;
@@ -36,6 +37,7 @@ public class Teacher extends Controller {
         renderArgs.put("headerimg", "/public/images/logo.bmp");
     }
 //!--------------------------------------------------DRAFT--------------------
+
     /**
      * 草稿页面
      */
@@ -70,11 +72,11 @@ public class Teacher extends Controller {
             Question q = ModelProxy.GetQuestionByPaperAndNo(paper_id, question_id);
             renderArgs.put("Question", q);
             render(paper_id);
-        }else{
+        } else {
             System.out.printf("No Question For This Paper\n");
             draft_new_question(paper_id);
         }
-        
+
     }
 
     public static void draft_new_addPaper(@Required String PaperName, @Required double TestTime) {
@@ -91,7 +93,7 @@ public class Teacher extends Controller {
             draft();
             return;
         }
-        
+
         String draft_result = ok ? "Success" : "Fail";
         render(draft_result);
     }
@@ -174,7 +176,15 @@ public class Teacher extends Controller {
         renderArgs.put("actioncontext", actions);
     }
 
+    //!-------------------------------PUBLISH-----------------------------
+    public static void published() {
+        List<MenuItem> paperlist = ModelProxy.GetPaperByTeacher(Security.connected(), true);
+        render(paperlist);
+        
+    }
 
- //!-------------------------------PUBLISH-----------------------------
-    
+//    private static void add_publish_actions() {
+//        List<MenuItem> actions = new ArrayList<MenuItem>();
+//        renderArgs.put("actioncontext", actions);
+//    }
 }

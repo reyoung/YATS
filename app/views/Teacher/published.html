@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
+#{set title:'Teacher Home>>Draft>>Published' /}
 #{Header items:headeritem, img:headerimg/}
 #{Left}
 #{UserInfoWnd user/}
 #{Action actioncontext/}
 #{/Left}
+<div id ="MainContext">
+#{PaperList paperlist/}
+</div>
