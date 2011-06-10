@@ -1,8 +1,11 @@
+<div id="context">
+<p>
 <form action="@{Teacher.draft_submit()}" method="post"
  name="QuestionForm"><input name="question_id"
  value="${_arg.id}" type="hidden">Question:<input
  value="${_arg.title}" name="title"><br>
 Answer:&nbsp;<input name="answer" value="${_arg.answer}"><br>
+<p>
 0.<input name="seletion_a" value="${_arg.seletionA}"><br>
 1.<input name="seletion_b" value="${_arg.seletionB}"><br>
 2.<input name="seletion_c" value="${_arg.seletionC}"><br>
@@ -10,6 +13,9 @@ Answer:&nbsp;<input name="answer" value="${_arg.answer}"><br>
 4.<input name="seletion_e" value="${_arg.seletionE}"><br>
 5.<input name="seletion_f" value="${_arg.seletionF}"><br>
 6.<input name="seletion_g" value="${_arg.seletionG}"><br>
-7.<input name="seletion_h" value="${_arg.seletionH}"><br>
+7.<input name="seletion_h" value="${_arg.seletionH}"><br></p>
+<div align="center">
   <input name="submit" value="Submit" type="submit">
-  <input name="delete" value="Delete" type="button" onclick="window.navigate('/teacher/draft/question/delete?question_id=${_arg.id}')"></form>
+  <input name="delete" value="Delete" type="button" onclick="window.navigate('/teacher/draft/question/delete?question_id=${_arg.id}')"></div>
+  </form>
+</p></div>

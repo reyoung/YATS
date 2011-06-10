@@ -2,20 +2,17 @@
 #{Header items:headeritem, img:headerimg/}
 
 
-
-<table class="mm">
-    <tr>
-        <td>
+ <div id="Panel">
             #{Left}
+			
             #{QuestionBox count:QuestionCount,prefix:QuestionPrefix /}
+			
             #{UserInfoWnd user/}
             #{Action actioncontext/}
             #{/Left}
-        </td>
-        <td width=900px  valign="top" >
+   
             <div id="MainContext">
                 #{QuestionEdit Question /}
             </div>
-        </td>
-    </tr>
-</table>
+ 
+      </div>

@@ -5,8 +5,16 @@
     ${flash.error}
 </p>
 #{/if}
+<div id="context">
 <form action="@{Teacher.draft_new_addPaper()}" method="POST">
-    Paper Name:<input type="text" name="PaperName" />
-    Test  Time:<input type="text" name="TestTime"/> Hour(s) 
-    <input type="submit" value="new" />
+    <p>Paper Name:
+      <input type="text" name="PaperName" />
+  </p>
+    <p>Test  Time:
+      <input type="text" name="TestTime"/> 
+  Hour(s)</p>
+    <div align="center">
+      <input type="submit" value="new" />
+            </div>
 </form>
+</div>
