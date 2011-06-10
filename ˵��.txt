@@ -1,6 +1,7 @@
 使用 play run YATS 启动项目，默认端口9000，默认数据库mem
 
 默认用户，reyoung	学生
+		  stu1,stu2,stu3 三个学生
 		  kuziki	教师
 		  lordvv	管理员
 		密码均为123321

@@ -165,7 +165,7 @@ public class ModelProxy {
         User student = User.find("byName", username).first();
         List<ResultInfo> rinfo = ResultInfo.find("byUser", student).fetch();
         for (ResultInfo r : rinfo) {
-            retv.add(new MenuItem(StudentPaperId2URL(r.paper.id), r.paper.name));
+            retv.add(new MenuItem(StudentPaperId2URL(r.paper.id,true), r.paper.name));
 //            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
         }
         return retv;
@@ -319,7 +319,7 @@ public class ModelProxy {
 //            retv.add(new MenuItem(TeacherPaperId2URL(p.id),p.name));
         }
         for (Paper p : totalPaper) {
-            retv.add(new MenuItem(StudentPaperId2URL(p.id), p.name));
+            retv.add(new MenuItem(StudentPaperId2URL(p.id,false), p.name));
         }
 //        retv.add(new MenuItem(TeacherPaperId2URL(2), "Paper 2"));
         return retv;
@@ -398,8 +398,8 @@ public class ModelProxy {
      * @param id
      * @return
      */
-    private static String StudentPaperId2URL(long id) {
-        return String.format("/student/test/edit?paper_id=%d", id);
+    private static String StudentPaperId2URL(long id,boolean done) {
+        return done?String.format("/student/result/show?paper_id=%d", id):String.format("/student/exam/start?paper_id=%d", id);
     }
 
     /**

@@ -46,6 +46,11 @@ public class Student extends Controller {
         exam_list();
     }
 
+    public static void result(){
+        List<MenuItem> paperlist = ModelProxy.GetPaperDoneByStudent(Security.connected());
+        render(paperlist);
+    }
+
     public static void exam_list() {
         addAction_exam_0();
         List<models.Paper> plist = ModelProxy.GetAvailablePaperByStudentName(Security.connected());
