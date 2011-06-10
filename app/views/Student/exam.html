@@ -2,19 +2,13 @@
 #{set title:'Teacher Home' /}
 #{Header items:headeritem, img:headerimg/}
 
-<table class="mm">
-    <tr>
-        <td valign="top">
+<div id="Panel">
             #{Left}
             #{UserInfoWnd user/}
             #{Action actioncontext/}
             #{/Left}
 
-        </td>
-        <td width=900px valign="top" >
             <div id="MainContext">
                 #{doLayout /}
             </div>
-        </td>
-    </tr>
-</table>
+      </div>

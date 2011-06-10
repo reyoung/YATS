@@ -1,8 +1,17 @@
 #{extends 'main.html' /}
 #{set title:'Teacher Home' /}
 #{Header items:headeritem, img:headerimg/}
-#{Left}
-#{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
-#{UserInfoWnd user/}
-#{Action actioncontext/}
-#{/Left}
+
+
+
+<div id="Panel">
+    #{Left}
+    #{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
+    #{UserInfoWnd user/}
+    #{Action actioncontext/}
+    #{/Left}
+
+    <div id="MainContext">
+        #{QuestionShow QuestionPair /}
+    </div>
+</div>
