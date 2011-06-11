@@ -23,27 +23,28 @@
     #{Action actioncontext/}
     #{/Left}
     <div id="MainContext">
-        <div id="AttendCount">
-            参考人数:${AttendCount}<br>
-        </div>
-        <div id="ScoreShow">
-            平均分:${AvgScore}<br>
-        </div>
-        <div id="DistributeShow">
+
+        <div id="CorrectRate">
             <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
                 <thead>
                     <tr>
-                        <th>分数段</th>
-                        <th>人数</th>
+                        <th>题号</th>
+                        <th>正确人数</th>
+                        <th>错误人数</th>
+                        <th>正确率</th>
                     </tr>
                 </thead>
                 <tbody>
-                    %{sz = DistributeRate.size();
+                    %{sz = CorrectRate.size();
                     for(i=0;i< sz;++i){
+                    c = CorrectRate.get(i).first;
+                    e = CorrectRate.get(i).second;
                     }%
                     <tr>
-                        <td>${i*100/sz} -${(i+1)*(100/sz)}</td>
-                        <td>${DistributeRate.get(i)}</td>
+                        <td>${i}</td>
+                        <td>${c}</td>
+                        <td>${e}</td>
+                        <td>${c/(c+e)}</td>
                     </tr>
                     %{}}%
                 </tbody>

@@ -46,6 +46,21 @@ public class Student extends Controller {
         exam_list();
     }
 
+    public static void result(){
+        List<MenuItem> paperlist = ModelProxy.GetPaperDoneByStudent(Security.connected());
+        render(paperlist);
+    }
+
+    public static void result_show(@Required long paper_id){
+        if(Validation.hasErrors()){
+            index();
+        }
+        System.out.printf("Paper ID = %d", paper_id);
+        List<Pair<Integer,Integer> > details = ModelProxy.GetTestDetail(Security.connected(), paper_id);
+        double score = ModelProxy.GetScore(((User)User.find("byName", Security.connected()).first()).id, paper_id);
+        render(details,score);
+    }
+
     public static void exam_list() {
         addAction_exam_0();
         List<models.Paper> plist = ModelProxy.GetAvailablePaperByStudentName(Security.connected());

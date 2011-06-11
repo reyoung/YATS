@@ -1,4 +1,16 @@
-<p>#{extends 'teacher/draft.html' /}
- </p>
-<p> #{set title:'Teacher Home>>Draft>>List' /}  </p>
-<p>#{PaperList paperlist/}</p>
+#{extends 'teacher/draft.html' /}
+#{set title:'Teacher Home>>Draft>>List' /}
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+#{/set}
+#{set 'moreStyles'}
+<style type="text/css" title="currentStyle">
+    @import "/public/stylesheets/demo_table.css";
+</style>
+#{/set}
+#{PaperList paperlist/}
