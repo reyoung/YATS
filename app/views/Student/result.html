@@ -14,19 +14,12 @@
     @import "/public/stylesheets/demo_table.css";
 </style>
 #{/set}
-
-<table class="mm">
-    <tr>
-        <td>
-            #{Left}
-            #{UserInfoWnd user/}
-            #{Action actioncontext/}
-            #{/Left}
-        </td>
-        <td width=900px  valign="top" >
-            <div id ="MainContext">
-                #{PaperList paperlist/}
-            </div>
-        </td>
-    </tr>
-</table>
+<div id="Panel">
+    #{Left}
+    #{UserInfoWnd user/}
+    #{Action actioncontext/}
+    #{/Left}
+    <div id ="MainContext">
+        #{PaperList paperlist/}
+    </div>
+</div>
