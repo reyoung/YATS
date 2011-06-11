@@ -1,10 +1,13 @@
 %{if(_arg!=null){}%
-<div id="Papers">
-    <ul id="PaperList">
+<div id="PaperList">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead><tr><th>试卷名称</th></tr></thead>
+        <tbody>
         %{for(item in _arg){}%
-        <li><a href="${item.url}">${item.name}</a></li>
+        <tr><td><a href="${item.url}">${item.name}</a></td></tr>
         %{}}%
-    </ul>
+        </tbody>
+    </table>
 </div>
 %{}else{}%
 %{}}%

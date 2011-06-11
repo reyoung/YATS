@@ -1,6 +1,18 @@
 #{extends 'main.html' /}
-#{set title:'Teacher Home' /}
 #{Header items:headeritem, img:headerimg/}
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+#{/set}
+#{set 'moreStyles'}
+<style type="text/css" title="currentStyle">
+    @import "/public/stylesheets/demo_table.css";
+</style>
+#{/set}
 
 <div id="Panel">
             #{Left}
