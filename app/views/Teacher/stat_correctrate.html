@@ -38,7 +38,11 @@
                 <td>${i}</td>
                 <td>${c}</td>
                 <td>${e}</td>
+                %{if((c+e)!=0){}%
                 <td>${c/(c+e)}</td>
+                %{}else{}%
+                <td>Unvaliable</td>
+                %{}}%
             </tr>
             %{}}%
         </tbody>
