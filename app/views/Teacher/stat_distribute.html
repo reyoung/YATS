@@ -5,4 +5,44 @@
 #{UserInfoWnd user/}
 #{Action actioncontext/}
 #{/Left}
-
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+#{/set}
+#{set 'moreStyles'}
+<style type="text/css" title="currentStyle">
+    @import "/public/stylesheets/demo_table.css";
+</style>
+#{/set}
+<div id="MainContext">
+    <div id="AttendCount">
+        参考人数:${AttendCount}<br>
+    </div>
+    <div id="ScoreShow">
+        平均分:${AvgScore}<br>
+    </div>
+    <div id="DistributeShow">
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+                <tr>
+                    <th>分数段</th>
+                    <th>人数</th>
+                </tr>
+            </thead>
+            <tbody>
+                %{sz = DistributeRate.size();
+                    for(i=0;i< sz;++i){
+                }%
+                <tr>
+                    <td>${i*100/sz} -${(i+1)*(100/sz)}</td>
+                    <td>${DistributeRate.get(i)}</td>
+                </tr>
+                %{}}%
+            </tbody>
+        </table>
+    </div>
+</div>

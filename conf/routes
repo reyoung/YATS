@@ -35,7 +35,8 @@ GET     /                                       Application.index
 *       /teacher/draft/new_question             Teacher.draft_new_question
 *       /teacher/published                      Teacher.published
 *       /teacher/published/stat                 Teacher.stat
-*       /teacher/stat/distribute      Teacher.stat_distribute
+*       /teacher/stat/distribute                Teacher.stat_distribute
+*       /teacher/stat/correct_rate              Teacher.stat_correctrate
 #Add Curd Module to /admin
 *       /admin/crud/                            module:crud
 
