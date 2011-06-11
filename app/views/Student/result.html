@@ -1,20 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Teacher Home>>Draft>>Published' /}
 #{Header items:headeritem, img:headerimg/}
+<div id="Panel">
+    #{Left}
+    #{UserInfoWnd user/}
+    #{Action actioncontext/}
+    #{/Left}
 
-
-<table class="mm">
-    <tr>
-        <td>
-            #{Left}
-            #{UserInfoWnd user/}
-            #{Action actioncontext/}
-            #{/Left}
-        </td>
-        <td width=900px  valign="top" >
-            <div id ="MainContext">
-                #{PaperList paperlist/}
-            </div>
-        </td>
-    </tr>
-</table>
+    <div id ="MainContext">
+        #{PaperList paperlist/}
+    </div>
+</div>
