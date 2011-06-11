@@ -65,11 +65,22 @@ public class ModelProxyTest2 extends UnitTest{
     @Test
     public void StartPaperTest()
     {
-        ModelProxy.StartPaper("reyoung", 3);
+        //ModelProxy.StartPaper("reyoung", 3);
     }
     @Test
     public void SaveQuestionByStudentTest()
     {
-        ModelProxy.SaveQuestionByStudent("reyoung", 4, 1);
+        //ModelProxy.SaveQuestionByStudent("reyoung", 4, 1);
+    }
+    @Test
+    public void GetTestDetailTest()
+    {
+        List<Pair<Integer,Integer> > ans = ModelProxy.GetTestDetail("reyoung", 2);
+        assertNotNull(ans);
+        for(Pair<Integer,Integer> p : ans)
+        {
+            System.out.print(p.first);System.out.print("+");System.out.print(p.second);
+            System.out.println();
+        }
     }
 }

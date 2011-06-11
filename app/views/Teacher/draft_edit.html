@@ -1,18 +1,14 @@
 #{extends 'main.html' /}
 #{Header items:headeritem, img:headerimg/}
 
-
- <div id="Panel">
+<div id="Panel">
             #{Left}
-			
             #{QuestionBox count:QuestionCount,prefix:QuestionPrefix /}
-			
             #{UserInfoWnd user/}
             #{Action actioncontext/}
             #{/Left}
-   
+
             <div id="MainContext">
                 #{QuestionEdit Question /}
             </div>
- 
       </div>
