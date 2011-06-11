@@ -56,8 +56,9 @@ public class Student extends Controller {
             index();
         }
         System.out.printf("Paper ID = %d", paper_id);
-//        double score = ModelProxy.GetScore(((User)User.find("byName", Security.connected()).first()).id, paper_id);
-        render();
+        List<Pair<Integer,Integer> > details = ModelProxy.GetTestDetail(Security.connected(), paper_id);
+        double score = ModelProxy.GetScore(((User)User.find("byName", Security.connected()).first()).id, paper_id);
+        render(details,score);
     }
 
     public static void exam_list() {

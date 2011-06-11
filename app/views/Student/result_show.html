@@ -1,10 +1,59 @@
 #{extends 'main.html' /}
 #{set title:'Teacher Home' /}
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+#{/set}
+#{set 'moreStyles'}
+<style type="text/css" title="currentStyle">
+    @import "/public/stylesheets/demo_table.css";
+</style>
+#{/set}
 #{Header items:headeritem, img:headerimg/}
 #{Left}
 #{UserInfoWnd user/}
 #{Action actioncontext/}
 #{/Left}
 <div id="MainContext">
-   Score = ${score}
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+            <tr>
+                <th>题号</th>
+                <th>你的答案</th>
+                <th>正确答案</th>
+            </tr>
+        </thead>
+        <tbody>
+            %{for(i=0;i< details.size();++i){
+            temp = details.get(i);
+            }%
+            <tr>
+                <td>${i}</td>
+                %{if(temp.first == -1){ }%
+                <td>Empty</td>
+                %{}else{}%
+                <td>${(char)(temp.first+65)}</td>
+                %{}
+                if(temp.second == -1){
+                }%
+                <td>Empty</td>
+                %{}else{}%
+                <td>${(char)(temp.second+65)}</td>
+                %{}}%
+            </tr>
+            %{}}%
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Your Score:</td>
+                <td>${score}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="dataTables_paginate paging_two_button" id="example_paginate"><div class="paginate_disabled_previous" title="Previous" id="example_previous"></div><div class="paginate_enabled_next" title="Next" id="example_next"></div></div>
 </div>
