@@ -1,0 +1,46 @@
+#{extends 'main.html' /}
+#{set title:'Teacher Home>>Published>>Stat' /}
+#{Header items:headeritem, img:headerimg/}
+#{Left}
+#{UserInfoWnd user/}
+#{Action actioncontext/}
+#{/Left}
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#example').dataTable();
+    } );
+</script>
+#{/set}
+#{set 'moreStyles'}
+<style type="text/css" title="currentStyle">
+    @import "/public/stylesheets/demo_table.css";
+</style>
+#{/set}
+<div id="CorrectRate">
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+            <tr>
+                <th>题号</th>
+                <th>正确人数</th>
+                <th>错误人数</th>
+                <th>正确率</th>
+            </tr>
+        </thead>
+        <tbody>
+            %{sz = CorrectRate.size();
+            for(i=0;i< sz;++i){
+                c = CorrectRate.get(i).first;
+                e = CorrectRate.get(i).second;
+            }%
+            <tr>
+                <td>${i}</td>
+                <td>${c}</td>
+                <td>${e}</td>
+                <td>${c/(c+e)}</td>
+            </tr>
+            %{}}%
+        </tbody>
+    </table>
+</div>

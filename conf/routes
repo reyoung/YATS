@@ -9,8 +9,7 @@
 GET     /                                       Application.index
 
 
-#Admin Pages
-*       /admin/?                                Admin.index
+
 
 #Student Pages
 *       /student/                               Student.index
@@ -35,9 +34,11 @@ GET     /                                       Application.index
 *       /teacher/draft/new_question             Teacher.draft_new_question
 *       /teacher/published                      Teacher.published
 *       /teacher/published/stat                 Teacher.stat
-*       /teacher/stat/distribute      Teacher.stat_distribute
+*       /teacher/stat/distribute                Teacher.stat_distribute
+*       /teacher/stat/correct_rate              Teacher.stat_correctrate
 #Add Curd Module to /admin
-*       /admin/crud/                            module:crud
+*       /admin/crud                             module:crud
+
 
 
 # Ignore favicon requests
@@ -46,7 +47,7 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
-
+*       /about                                  staticFile:/public/about.html
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

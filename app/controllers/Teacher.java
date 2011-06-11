@@ -6,6 +6,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import models.ModelProxy;
+import models.ModelProxy.Pair;
 import models.Question;
 import models.User;
 import play.data.validation.Required;
@@ -192,7 +193,19 @@ public class Teacher extends Controller {
             index();
         }
         add_publish_actions(paper_id);
-        render();
+        double AvgScore = ModelProxy.GetAvgScoreByPaperId(paper_id);
+        int AttendCount = ModelProxy.GetAttendExamStudentCount(paper_id);
+        List<Integer> DistributeRate = ModelProxy.GetDistributePeopleNumberByPaperId(paper_id, 10);
+        render(AvgScore,AttendCount,DistributeRate);
+    }
+
+    public static void stat_correctrate(@Required long paper_id){
+        if (Validation.hasErrors()){
+            index();
+        }
+        add_publish_actions(paper_id);
+        List<Pair<Integer, Integer>> CorrectRate = ModelProxy.GetCorrectRateByPaperId(paper_id);
+        render(CorrectRate);
     }
 
     private static void add_publish_actions(long paper_id) {
