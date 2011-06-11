@@ -41,7 +41,7 @@ width:1280px;
 }
 
 #header #menu li a {
-    color: #FFFFCD;/*Á¬½Ó×ÖÌåÑÕÉ« Ç³»Æ*/
+    color: #FFFFCD;/*è¿žæŽ¥å­—ä½“é¢œè‰² æµ…é»„*/
 	display: block;
 	font-family:"Times New Roman";
 	margin-left: 20px;
@@ -51,21 +51,33 @@ width:1280px;
 
 #Panel{
     width:1024px;
-    height:655px;
+    height:800px;
 	margin-left:110px;
     background:url(../images/bgleft.jpg);
 	margin-top:0px;
 }
+
 #Panel #left{
     margin-left:45px;
 	margin-top:40px;
 	float:left;
 
 }
+#Panel #left .DONE{
+
+    background-color: #999999;
+    color: #ffffff;
+}
+#Panel #left .UNDONE{
+
+    background-color: #ffffff;
+    color: #000000;
+}
 #Panel #ActionMenu{
 
 
 }
+
 
 #Panel #MainContext{
     background-color:#FFFFCD;
@@ -73,7 +85,7 @@ width:1280px;
 	margin-right:45px;
 	margin-top:40px;
 	width:660px;
-	height:540px;
+	height:750px;
 }
 #Papers{}
 #Papers #PaperList{}

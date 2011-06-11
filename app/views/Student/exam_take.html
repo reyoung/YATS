@@ -40,6 +40,9 @@
 
 
 <div id="Panel">
+    <div id="MainContext">
+        #{QuestionShow QuestionPair /}
+    </div>
     #{Left}
     #{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
     #{UserInfoWnd user/}
@@ -54,7 +57,5 @@
 
     #{/Left}
 
-    <div id="MainContext">
-        #{QuestionShow QuestionPair /}
-    </div>
+    
 </div>
