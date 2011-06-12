@@ -10,7 +10,6 @@ width:1280px;
 	width:1024px;
 	height:145px;
 	background: #CED794;
-
 	margin-left:110px;
 	/*
         color: #99CC66;*/
@@ -42,12 +41,14 @@ width:1280px;
 }
 
 #header #menu li a {
-    color: #FFFFCD;/*����������ɫ ǳ��*/
+    color: #FFFFCD;
 	display: block;
 	font-family:"Times New Roman";
 	margin-left: 20px;
 	margin-right:20px;
 	margin-top:5px;
+	font-family: "Comic Sans MS";
+	text-decoration:none;
 }
 
 #Panel{
