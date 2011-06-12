@@ -42,7 +42,7 @@ width:1280px;
 }
 
 #header #menu li a {
-    color: #FFFFCD;/*Á¬½Ó×ÖÌåÑÕÉ« Ç³»Æ*/
+    color: #FFFFCD;/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É« Ç³ï¿½ï¿½*/
 	display: block;
 	font-family:"Times New Roman";
 	margin-left: 20px;
@@ -67,7 +67,16 @@ width:1280px;
 
 
 }
+#Panel #left .DONE{
 
+    background-color: #999999;
+    color: #ffffff;
+}
+#Panel #left .UNDONE{
+
+    background-color: #ffffff;
+    color: #000000;
+}
 #Panel #MainContext{
     background-color:#FFFFCD;
     float:right;
