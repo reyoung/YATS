@@ -43,6 +43,11 @@
     #{Left}
     #{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
     #{UserInfoWnd user/}
+	
+    #{Action actioncontext/}
+    #{/Left}
+
+    <div id="MainContext">
 	<div>
     Time Remaining:<br>
     <div id="counter"></div>
@@ -52,10 +57,9 @@
         <div>Sec</div>
     </div>
 	</div>
-    #{Action actioncontext/}
-    #{/Left}
+	<br />
 
-    <div id="MainContext">
         #{QuestionShow QuestionPair /}
+
     </div>
 </div>
