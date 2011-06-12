@@ -36,12 +36,13 @@ width:1280px;
     font-size:24px;
 	float: right;	
 	line-height:30px;
-	background: #718347;
+	background: url(../images/menu.jpg);
+	background-repeat: repeat-x;
 	margin-right:10px;
 }
 
 #header #menu li a {
-    color: #FFFFCD;/*è¿žæŽ¥å­—ä½“é¢œè‰² æµ…é»„*/
+    color: #FFFFCD;/*Á¬½Ó×ÖÌåÑÕÉ« Ç³»Æ*/
 	display: block;
 	font-family:"Times New Roman";
 	margin-left: 20px;
@@ -51,33 +52,21 @@ width:1280px;
 
 #Panel{
     width:1024px;
-    height:800px;
+    height:860px;
 	margin-left:110px;
     background:url(../images/bgleft.jpg);
 	margin-top:0px;
 }
-
 #Panel #left{
     margin-left:45px;
 	margin-top:40px;
 	float:left;
 
 }
-#Panel #left .DONE{
-
-    background-color: #999999;
-    color: #ffffff;
-}
-#Panel #left .UNDONE{
-
-    background-color: #ffffff;
-    color: #000000;
-}
 #Panel #ActionMenu{
 
 
 }
-
 
 #Panel #MainContext{
     background-color:#FFFFCD;
@@ -85,7 +74,8 @@ width:1280px;
 	margin-right:45px;
 	margin-top:40px;
 	width:660px;
-	height:750px;
+	height:auto;
+	color:#718347;
 }
 #Papers{}
 #Papers #PaperList{}
@@ -104,24 +94,41 @@ width:1280px;
 	font-size:20px;
 	border:1px double #FFFFCD;
 	list-style: none;
+	margin-bottom:60px;
 }
 .td{
-    border:1px double #718347;
+    border:1px solid #718347;
 }
 #table_userInfo li a {
     color:#5A6344;
 	
 }
 #table_Action{
-    margin-top:60px;
     width:230px;
 	height:200px;
 	text-align:center;
 	background:#CED794; 
 	font-size:20px;
-	border:1px double #FFFFCD;
+	border:1px solid #FFFFCD;
 	list-style: none;
+	margin-bottom:60px;
 }
 #table_Action li a {
     color:#5A6344;	
+}
+
+
+#table_QB{
+    background:#CED794; 
+	border:1px solid #FFFFCD;
+	margin-bottom:30px;
+}
+.td{
+    border:1px solid #718347;
+}
+
+#context{
+    font-size:16px;
+    color:#718347;
+	margin-left:20px;
 }

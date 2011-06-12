@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Teacher Home' /}
+#{set title:'Student Home>>Exam List>>Attend Exam' /}
 #{Header items:headeritem, img:headerimg/}
 #{set 'moreScripts'}
 <script src="/public/javascripts/jquery.countdown.js" type="text/javascript" charset="utf-8"></script>
@@ -40,12 +40,15 @@
 
 
 <div id="Panel">
-    <div id="MainContext">
-        #{QuestionShow QuestionPair /}
-    </div>
     #{Left}
     #{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
     #{UserInfoWnd user/}
+	
+    #{Action actioncontext/}
+    #{/Left}
+
+    <div id="MainContext">
+	<div>
     Time Remaining:<br>
     <div id="counter"></div>
     <div class="desc">
@@ -53,9 +56,10 @@
         <div>Min</div>
         <div>Sec</div>
     </div>
-    #{Action actioncontext/}
+	</div>
+	<br />
 
-    #{/Left}
+        #{QuestionShow QuestionPair /}
 
-    
+    </div>
 </div>
