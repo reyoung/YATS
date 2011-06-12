@@ -36,7 +36,8 @@ width:1280px;
     font-size:24px;
 	float: right;	
 	line-height:30px;
-	background: #718347;
+	background: url(../images/menu.jpg);
+	background-repeat: repeat-x;
 	margin-right:10px;
 }
 

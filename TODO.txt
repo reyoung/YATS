@@ -1,4 +1,4 @@
-1、完成about.html，在public目录下
+﻿1、完成about.html，在public目录下
 2、完成布局问题
 3、完成网页标题的优化
 4、找bug～～
