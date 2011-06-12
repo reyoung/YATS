@@ -1,14 +1,57 @@
 #{extends 'main.html' /}
 #{set title:'Teacher Home' /}
 #{Header items:headeritem, img:headerimg/}
-
+#{set 'moreScripts'}
+<script src="/public/javascripts/jquery.countdown.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+   $(function(){
+        $('#counter').countdown({
+          image: '/public/images/digits.png',
+          startTime: '${RestTime}',
+          timerEnd: function(){
+              alert("Time's Up")
+              window.navigate('/student/exam/finish?paper_id=${paper_id}')
+          },
+          format: 'hh:mm:ss'
+        });
+    });
+</script>
+#{/set}
+#{set 'moreStyles'}
+    <style type="text/css">
+      br { clear: both; }
+      .cntSeparator {
+        font-size: 54px;
+        margin: 10px 7px;
+        color: #000;
+      }
+      .desc { margin: 7px 3px; }
+      .desc div {
+        float: left;
+        font-family: Arial;
+        width: 70px;
+        margin-right: 65px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #000;
+      }
+    </style>
+#{/set}
 
 
 <div id="Panel">
     #{Left}
     #{StudentQuestionBox list:StatusList, prefix:EditPrefix /}
     #{UserInfoWnd user/}
+    Time Remaining:<br>
+    <div id="counter"></div>
+    <div class="desc">
+        <div>Hours</div>
+        <div>Min</div>
+        <div>Sec</div>
+    </div>
     #{Action actioncontext/}
+
     #{/Left}
 
     <div id="MainContext">

@@ -46,19 +46,19 @@ public class Student extends Controller {
         exam_list();
     }
 
-    public static void result(){
+    public static void result() {
         List<MenuItem> paperlist = ModelProxy.GetPaperDoneByStudent(Security.connected());
         render(paperlist);
     }
 
-    public static void result_show(@Required long paper_id){
-        if(Validation.hasErrors()){
+    public static void result_show(@Required long paper_id) {
+        if (Validation.hasErrors()) {
             index();
         }
         System.out.printf("Paper ID = %d", paper_id);
-        List<Pair<Integer,Integer> > details = ModelProxy.GetTestDetail(Security.connected(), paper_id);
-        double score = ModelProxy.GetScore(((User)User.find("byName", Security.connected()).first()).id, paper_id);
-        render(details,score);
+        List<Pair<Integer, Integer>> details = ModelProxy.GetTestDetail(Security.connected(), paper_id);
+        double score = ModelProxy.GetScore(((User) User.find("byName", Security.connected()).first()).id, paper_id);
+        render(details, score);
     }
 
     public static void exam_list() {
@@ -82,13 +82,47 @@ public class Student extends Controller {
         addAction_exam_1(paper_id);
         _renderQuestionStatue(paper_id);
         Pair<Question, Integer> QuestionPair = ModelProxy.GetQuestionByStudent(Security.connected(), paper_id, question_no);
-        render(QuestionPair);
+        int restSecond = ModelProxy.GetRestTimeOfExam(Security.connected(), paper_id);
+        System.out.printf("Rest Second = %d\n", restSecond);
+        StringBuilder sb = new StringBuilder();
+        if (restSecond / 3600 != 0) {
+            int h = restSecond / 3600;
+            if (h < 10) {
+                sb.append('0');
+            }
+            sb.append(h);
+            sb.append(':');
+        } else {
+            sb.append("00:");
+        }
+        if ((restSecond % 3600) / 60 != 0) {
+            int m = (restSecond % 3600) / 60;
+            if (m < 10) {
+                sb.append('0');
+            }
+            sb.append(m);
+            sb.append(':');
+        } else {
+            sb.append("00:");
+        }
+        if (restSecond % 60 != 0) {
+            int s = restSecond % 60;
+            if (s < 10) {
+                sb.append('0');
+            }
+            sb.append(s);
+        } else {
+            sb.append("00");
+        }
+        String RestTime = sb.toString();
+        System.out.printf("Rest Time = %s\n", RestTime);
+        render(QuestionPair,RestTime,paper_id);
     }
-    public static void exam_finish(@Required long paper_id){
+
+    public static void exam_finish(@Required long paper_id) {
         ModelProxy.StudentFinishPaper(Security.connected(), paper_id);
         index();
     }
-
 
     public static void question_submit(@Required long question_id, @Required int select_id, @Required long paper_id) {
         if (Validation.hasErrors()) {
@@ -120,6 +154,7 @@ public class Student extends Controller {
         }
         return retv;
     }
+
     private static void addAction_exam_0() {
         List<MenuItem> acts = new ArrayList<MenuItem>();
         models.Paper unfinish = ModelProxy.GetUnfinishedPaperByStudentName(Security.connected());
@@ -129,9 +164,10 @@ public class Student extends Controller {
         acts.add(new MenuItem("/student/exam/list", "All Available Exam"));
         renderArgs.put("actioncontext", acts);
     }
-    private static void addAction_exam_1(long paper_id){
+
+    private static void addAction_exam_1(long paper_id) {
         List<MenuItem> acts = new ArrayList<MenuItem>();
-        acts.add(new MenuItem(String.format("/student/exam/finish?paper_id=%d",paper_id), "Finish"));
+        acts.add(new MenuItem(String.format("/student/exam/finish?paper_id=%d", paper_id), "Finish"));
         renderArgs.put("actioncontext", acts);
     }
 }

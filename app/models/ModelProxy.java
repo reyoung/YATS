@@ -14,6 +14,15 @@ import java.util.List;
  */
 public class ModelProxy {
 
+
+    public static int GetRestTimeOfExam(String username,long paper_id){
+        Paper p = Paper.findById(paper_id);
+        User  u = User.find("byName", username).first();
+        ResultInfo ri = ResultInfo.find("byUserAndPaper", u,p).first();
+        long  rest = System.currentTimeMillis() - ri.startTime.getTime();
+        return p.time - (int)(rest/1000);
+    }
+
     public static void StudentFinishPaper(String username, long paper_id) {
         ModelProxy.GetScore(((User) User.find("byName", username).first()).id, paper_id);
     }
