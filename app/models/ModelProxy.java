@@ -5,6 +5,8 @@ package models;
 
 import controllers.MenuItem;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +19,35 @@ import java.util.Set;
 public class ModelProxy {
 
 
+    public static int GetRankOfPaper(String username,long paper_id){
+        Paper curPaper = Paper.findById(paper_id);
+        User  curStu = User.find("byName", username).first();
+        assert(curPaper!=null);
+        assert(curStu!=null);
+        List<ResultInfo > RInfoList = ResultInfo.find("byPaper", curPaper).fetch();
+        Collections.sort(RInfoList, new Comparator<ResultInfo>() {
+            public int compare(ResultInfo o1, ResultInfo o2) {
+                if(o1.score()<o2.score()){
+                    return 1;
+                }else if(o1.score()>o2.score()){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        });
+        for(int i=0;i<RInfoList.size();++i){
+            if(RInfoList.get(i).user.id == curStu.id){
+                while(i>0&&( RInfoList.get(i-1).score()-RInfoList.get(i).score()<0.005) ){
+                    --i;
+                }
+                return i+1;
+            }
+        }
+        return -1;
+    }
+    
+    
     public static int GetRestTimeOfExam(String username,long paper_id){
         Paper p = Paper.findById(paper_id);
         User  u = User.find("byName", username).first();

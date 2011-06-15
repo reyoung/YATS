@@ -58,7 +58,8 @@ public class Student extends Controller {
         System.out.printf("Paper ID = %d", paper_id);
         List<Pair<Integer, Integer>> details = ModelProxy.GetTestDetail(Security.connected(), paper_id);
         double score = ModelProxy.GetScore(((User) User.find("byName", Security.connected()).first()).id, paper_id);
-        render(details, score);
+        int Rank = ModelProxy.GetRankOfPaper(Security.connected(),paper_id);
+        render(details, score,Rank);
     }
 
     public static void exam_list() {
