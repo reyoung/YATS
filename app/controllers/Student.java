@@ -121,7 +121,7 @@ public class Student extends Controller {
 
     public static void exam_finish(@Required long paper_id) {
         ModelProxy.StudentFinishPaper(Security.connected(), paper_id);
-        index();
+        result_show(paper_id);
     }
 
     public static void question_submit(@Required long question_id, @Required int select_id, @Required long paper_id) {

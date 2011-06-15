@@ -6,7 +6,9 @@ package models;
 import controllers.MenuItem;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *  是Model层的代理类，外部的方便接口
@@ -52,8 +54,9 @@ public class ModelProxy {
         List<Boolean> retv = new ArrayList<Boolean>();
         Paper paper = Paper.findById(paper_id);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
+        User user = User.find("byName", studentname).first();
         for (Question q : qsList) {
-            if (UserDoneQuestion.find("byQuestion", q).first() != null) {
+            if (UserDoneQuestion.find("byQuestionAndUser", q,user).first() != null) {
                 retv.add(Boolean.TRUE);
             } else {
                 retv.add(Boolean.FALSE);
@@ -485,14 +488,21 @@ public class ModelProxy {
         List<Pair<Integer, Integer>> ans = new ArrayList<Pair<Integer, Integer>>();
         Paper paper = Paper.findById(paper_id);
         List<Question> qsList = Question.find("byPaper", paper).fetch();
+        List<ResultInfo> riList = ResultInfo.find("byPaper", paper).fetch();
+        List<User> usList = new ArrayList<User>();
+        for(ResultInfo r : riList)
+        {
+            usList.add(r.user);
+        }
         for (Question q : qsList) {
-            List<UserDoneQuestion> udqList = UserDoneQuestion.find("byQuestion", q).fetch();
+//            List<UserDoneQuestion> udqList = UserDoneQuestion.find("byQuestion", q).fetch();
             int tNum = 0, fNum = 0;
-            for (UserDoneQuestion udq : udqList) {
-                if (udq.answer == q.answer) {
-                    tNum++;
-                } else {
-                    fNum++;
+            for(User u : usList){
+                UserDoneQuestion udq = UserDoneQuestion.find("byQuestionAndUser", q,u).first();
+                if(udq!=null && udq.answer == q.answer){
+                    ++tNum;
+                }else {
+                    ++fNum;
                 }
             }
             ans.add(new Pair<Integer, Integer>(tNum, fNum));

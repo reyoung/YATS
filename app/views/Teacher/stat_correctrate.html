@@ -37,11 +37,11 @@
                 e = CorrectRate.get(i).second;
             }%
             <tr>
-                <td>${i}</td>
+                <td>${i+1}</td>
                 <td>${c}</td>
                 <td>${e}</td>
                 %{if((c+e)!=0){}%
-                <td>${c/(c+e)}</td>
+                <td>${(c/(c+e))*100}%</td>
                 %{}else{}%
                 <td>Unvaliable</td>
                 %{}}%

@@ -61,7 +61,10 @@ public class ResultInfo extends Model{
         }
         for(UserDoneQuestion u : udq)
         {
-            if(u.answer == u.question.answer)res += scorePerQus;
+            if(u.question.paper.id == paper.id){
+                if(u.answer == u.question.answer)
+                    res+=scorePerQus;
+            }
         }
         result = res;
         this.save();
